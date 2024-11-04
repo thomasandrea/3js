@@ -3,16 +3,18 @@ import * as THREE from "three";
 import * as CANNON from "cannon-es";
 import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
+import {boundarySizes, shifts} from "./physics.js";
+
 const appState = {
   currentAnimation: null,
 };
 
 let initialPosition = new THREE.Vector3();
-let initialDistance = 0;
+let initialDistance = null; 
 let targetPosition = new THREE.Vector3();
 let movingObject = null; // Oggetto attualmente in movimento
 const movementSpeed = 1; // Velocità di movimento
-const moveSpeed = 100; // Velocità di movimento, da regolare secondo le esigenze
+const moveSpeed = 1000; // Velocità di movimento, da regolare secondo le esigenze
 const stopThreshold = 0.01;
 
 const geometry = new THREE.SphereGeometry(10, 320, 320); // Adjust radius (0.5) as needed
@@ -30,7 +32,7 @@ export function loadSplineScene(scene, world, camera, renderer) {
     "molla",
     "cursor",
     "star",
-    "occhiali",
+    //"occhiali",
     "bottiglia",
     "Bicycle",
     "cube",
@@ -42,6 +44,34 @@ export function loadSplineScene(scene, world, camera, renderer) {
 
     updateSpherePosition(referenceSphere, camera, 1000);
     scene.add(referenceSphere);
+
+    // Imposta la dimensione della scatola
+    const boxSize = new THREE.Vector3(boundarySizes.x, boundarySizes.y, boundarySizes.z); // Dimensioni della scatola
+    const boxHalfExtents = new CANNON.Vec3(boxSize.x / 2, boxSize.y / 2, boxSize.z / 2);
+    
+    // Crea la scatola fisica
+    const boxShape = new CANNON.Box(boxHalfExtents);
+
+
+    const boxBody = new CANNON.Body({
+        mass: 0, // Imposta a zero per un oggetto statico
+        position: new CANNON.Vec3(0, 0, 0), // Posizione centrale
+    });
+    //boxBody.addShape(boxShape);
+    //world.addBody(boxBody); // Aggiungi al mondo fisico
+
+    // Crea la scatola visiva
+    const boxGeometry = new THREE.BoxGeometry(boxSize.x*2, boxSize.y*2, boxSize.z*2);
+    const boxMaterial = new THREE.MeshBasicMaterial({
+        color: 0x00ff00,
+        wireframe: true
+    });
+    const boxHelper = new THREE.Mesh(boxGeometry, boxMaterial);
+    boxHelper.position.set(shifts.x, shifts.y, shifts.z);
+    scene.add(boxHelper); // Aggiungi alla scena
+
+
+
     //addSurroundingSphere(scene)
 
     splineScene.traverse((child) => {
@@ -56,14 +86,17 @@ export function loadSplineScene(scene, world, camera, renderer) {
             new CANNON.Vec3(size.x / 2, size.y / 2, size.z / 2)
           );
           const body = new CANNON.Body({
-            mass: 1,
+            mass: .1,
             position: new CANNON.Vec3(
               child.position.x,
               child.position.y,
               child.position.z
             ),
+            linearVelocity: new CANNON.Vec3(0, 0, 0),
+            
             shape: shape,
           });
+          body.restitution = 1.3;
           child.userData.physicsBody = body;
           world.addBody(body);
 
@@ -76,16 +109,36 @@ export function loadSplineScene(scene, world, camera, renderer) {
           scene.add(boxHelper);
 
           child.userData.boxHelper = boxHelper;
+          child.visible = true;
           clickableObjects.push(child);
+
+      const multiplyForce =   2000;  
+
+          // Forza iniziale casuale
+      const initialForce = new CANNON.Vec3(
+        (Math.random() - 0.5) * multiplyForce,  // Forza casuale lungo X
+        (Math.random() - 0.5) * multiplyForce,  // Forza casuale lungo Y
+        (Math.random() - 0.5) * multiplyForce   // Forza casuale lungo Z
+      );
+      const pointOfApplication = new CANNON.Vec3(0, 0, 0);
+      body.applyForce(initialForce, pointOfApplication);
+
+      // Rotazione iniziale casuale
+      body.angularVelocity.set(
+        (Math.random() - 0.5) * 1,  // Rotazione casuale lungo X
+        (Math.random() - 0.5) * 1,  // Rotazione casuale lungo Y
+        (Math.random() - 0.5) * 1   // Rotazione casuale lungo Z
+      );
         } else {
           //child.visible = false;
         }
-      }
-      if (child.name.includes("Bitmama")) child.visible = false;
+      } 
+      
     });
   });
 
 }
+
 
 export function updateMovingObject() {
   if (movingObject) {
@@ -93,37 +146,46 @@ export function updateMovingObject() {
     const currentPosition = new THREE.Vector3().copy(physicsBody.position);
     const distance = currentPosition.distanceTo(targetPosition);
 
+    // Imposta `initialDistance` una sola volta all'inizio
+    if (initialDistance === null) {
+      initialDistance = distance;
+      console.log("Initial Distance:", initialDistance);
+    }
+
     if (distance > stopThreshold) {
-      //console.log(distance, initialDistance)
-      // Calcola la direzione verso la posizione target
       const direction = new THREE.Vector3()
         .subVectors(targetPosition, currentPosition)
         .normalize();
 
-      // Applica un easing alla velocità basato sulla distanza
-      //const t = 1 - Math.min(distance / initialDistance, 1);
+      // Inizializza `t` come proporzione decrescente man mano che ci si avvicina
+      const t = initialDistance > 0 ? distance / initialDistance : 0;
+      //console.log("Distance:", distance, "Initial Distance:", initialDistance, "t:", t);
 
-      const t = 1;
+      // Esegui l'easing
       const easedSpeed = easeOutCubic(t) * moveSpeed;
+      const maxSpeed = 500;
+      const clampedSpeed = Math.min(easedSpeed, maxSpeed);
 
-      //const easedSpeed = 100;
-      //console.log(distance / initialDistance)
-      // Calcola la forza direzionale da applicare al corpo
       const force = new CANNON.Vec3(
-        direction.x * easedSpeed,
-        direction.y * easedSpeed,
-        direction.z * easedSpeed
+        direction.x * clampedSpeed,
+        direction.y * clampedSpeed,
+        direction.z * clampedSpeed
       );
-      // Applica la forza al corpo fisico
+
       physicsBody.velocity.copy(force);
     } else {
-      // Arresta l'oggetto quando è abbastanza vicino
-      physicsBody.velocity.set(0, 0, 0);
-      movingObject = null;
-      physicsBody.sleep();
+      //physicsBody.velocity.set(0, 0, 0);
+      //movingObject = null;
+      //physicsBody.sleep();
+      //initialDistance = null; // Reset per il prossimo movimento
     }
   }
 }
+
+function easeOutCubic(t) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
 
 
 // Gestore per il clic del mouse
@@ -161,7 +223,7 @@ export function handleClickScene(event, camera) {
 
         appState.currentAnimation = "moveToCamera";
 
-        console.log("clicked");
+        //console.log("clicked");
 
         // Imposta la posizione finale e la rotazione
         //physicsBody.position.set(targetPosition.x, targetPosition.y, targetPosition.z);
@@ -178,9 +240,7 @@ function easeInOutCubic(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-function easeOutCubic(t) {
-  return 1 - Math.pow(1 - t, 3);
-}
+
 
 function addSurroundingSphere(scene) {
   const textureLoader = new THREE.TextureLoader();
