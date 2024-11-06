@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -89,7 +89,7 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
   }
   a:hover {
     color: #747bff;
@@ -99,13 +99,27 @@ button:focus-visible {
   }
 }
 
-
-
 .logoBitmama {
   position: absolute;
   top :20px;
   left:20px;
-  width: 500px;
+  width: 30%;
+  max-width: 400px;
   margin:0;
   padding:0;
+  z-index: 3;
+}
+
+.webglCanvas {
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index: 1;
+}
+
+.canvasThree {
+  position: relative;
+  z-index: 2;
 }

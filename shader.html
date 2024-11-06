@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGL Shader - Scia di Luce con Movimento del Mouse</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+    const canvas = document.getElementById('canvas');
+    const gl = canvas.getContext('webgl');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Imposta il colore di sfondo a nero
+    gl.clearColor(0, 0, 0, 1); // RGB e Alpha
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // Vertex shader
+    const vertexShaderSource = `
+        attribute vec2 a_position;
+        void main() {
+            gl_Position = vec4(a_position, 0, 1);
+            gl_PointSize = 10.0; // Dimensione del punto
+        }
+    `;
+
+    // Fragment shader
+    const fragmentShaderSource = `
+        precision mediump float;
+        uniform vec2 u_resolution;
+        uniform vec2 u_mouse;
+        void main() {
+            vec2 uv = gl_FragCoord.xy / u_resolution;
+            float dist = distance(uv, u_mouse / u_resolution);
+            float alpha = smoothstep(0.05, 0.15, dist); // Maggiore sfocatura
+            float glow = smoothstep(0.02, 0.1, dist); // Maggiore glow
+            gl_FragColor = vec4(1.0, 1.0, 1.0, (1.0 - alpha) * glow); // Colore bianco con trasparenza e glow
+        }
+    `;
+
+    function createShader(gl, type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) === false) {
+            console.error(gl.getShaderInfoLog(shader));
+            gl.deleteShader(shader);
+            return null;
+        }
+        return shader;
+    }
+
+    const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+    const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+
+    const program = gl.createProgram();
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+    gl.useProgram(program);
+
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    const positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+    gl.enableVertexAttribArray(positionAttributeLocation);
+    gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
+
+    // Gestione del mouse
+    const points = [];
+    let lastMousePosition = { x: 0, y: 0 };
+
+    canvas.addEventListener('mousemove', (event) => {
+        const rect = canvas.getBoundingClientRect();
+        lastMousePosition.x = (event.clientX - rect.left) / canvas.width * 2 - 1; // Normalizza in [-1, 1]
+        lastMousePosition.y = 1 - (event.clientY - rect.top) / canvas.height * 2; // Normalizza in [-1, 1]
+        
+        // Aggiungi la posizione del mouse ai punti
+        points.push(lastMousePosition.x, lastMousePosition.y);
+    });
+
+    function draw() {
+        gl.clear(gl.COLOR_BUFFER_BIT); // Pulisce il buffer con il colore di sfondo
+        gl.viewport(0, 0, canvas.width, canvas.height);
+
+        // Aggiorna il buffer con i punti accumulati
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.DYNAMIC_DRAW);
+
+        // Disegna una linea continua tra i punti
+        for (let i = 0; i < points.length - 2; i += 2) {
+            const x1 = points[i];
+            const y1 = points[i + 1];
+            const x2 = points[i + 2];
+            const y2 = points[i + 3];
+
+            // Calcola le coordinate per la linea
+            const vertices = new Float32Array([
+                x1, y1,
+                x2, y2
+            ]);
+
+            gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+            gl.drawArrays(gl.LINES, 0, 2);
+        }
+
+        // Mantieni la scia: riduci la persistenza
+        if (points.length > 50) { // Limita il numero di punti nel buffer
+            points.splice(0, 2); // Rimuove i primi punti
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    draw();
+</script>
+</body>
+</html>
