@@ -1,0 +1,10 @@
+{
+    "builds": [
+      { "src": "projects/bitmama/package.json", "use": "@vercel/static-build", "config": { "distDir": "dist/bitmama" } },
+      { "src": "projects/morphing/package.json", "use": "@vercel/static-build", "config": { "distDir": "dist/morphing" } }
+    ],
+    "routes": [
+      { "src": "/bitmama/(.*)", "dest": "/dist/bitmama/$1" },
+      { "src": "/morphing/(.*)", "dest": "/dist/morphing/$1" }
+    ]
+  }

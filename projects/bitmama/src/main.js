@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 //import { initShaders, updateShaderCanvas } from "./src/shader.js";
-import { initPhysicsWorld, updatePhysicsObjects } from "./src/physics.js";
-import { loadSplineScene, updateMovingObject , handleClickScene, onMouseDown, onMouseUp, onMouseMove} from "./src/sceneLoader.js";
+import { initPhysicsWorld, updatePhysicsObjects } from "./physics.js";
+import { loadSplineScene, updateMovingObject , handleClickScene, onMouseDown, onMouseUp, onMouseMove} from "./sceneLoader.js";
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
 import Stats from "stats.js";
 

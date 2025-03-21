@@ -1,20 +1,14 @@
 {
-  "name": "3djs_three",
+  "name": "monorepo",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "workspaces": [
+    "projects/bitmama",
+    "projects/morphing"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build:bitmama": "vite build --config projects/bitmama/vite.config.js --emptyOutDir",
+    "build:morphing": "vite build --config projects/morphing/vite.config.js --emptyOutDir",
+    "build": "npm run build:bitmama && npm run build:morphing"
   },
-  "devDependencies": {
-    "vite": "^5.4.8"
-  },
-  "dependencies": {
-    "@splinetool/loader": "^1.9.31",
-    "cannon-es": "^0.20.0",
-    "stats.js": "^0.17.0",
-    "three": "^0.149.0"
-  }
+  "dependencies": {}
 }
