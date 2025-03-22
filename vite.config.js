@@ -4,10 +4,10 @@ import fs from 'fs';
 
 export default defineConfig({
   build: {
-    outDir: 'dist', // Cartella di output
+    outDir: 'dist', // Cartella di output principale
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html'), // Includi index.html
+        main: path.resolve(__dirname, 'index.html'), // Pagina principale
         bitmama: path.resolve(__dirname, 'projects/bitmama/index.html'), // Progetto bitmama
         morphing: path.resolve(__dirname, 'projects/morphing/index.html'), // Progetto morphing
       },

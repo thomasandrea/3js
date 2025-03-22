@@ -1,19 +1,25 @@
 {
-    "builds": [
-      {
-        "src": "projects/bitmama/vite.config.js",
-        "use": "@vercel/static-build",
-        "config": { "distDir": "dist/bitmama" }
-      },
-      {
-        "src": "projects/morphing/vite.config.js",
-        "use": "@vercel/static-build",
-        "config": { "distDir": "dist/morphing" }
+  "builds": [
+    {
+      "src": "vite.config.js",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
       }
-    ],
-    "routes": [
-    { "src": "/bitmama/(.*)", "dest": "/dist/bitmama/$1" },
-    { "src": "/morphing/(.*)", "dest": "/dist/morphing/$1" },
-    { "src": "/(.*)", "dest": "/dist/$1" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/projects/bitmama/(.*)",
+      "dest": "/projects/bitmama/$1"
+    },
+    {
+      "src": "/projects/morphing/(.*)",
+      "dest": "/projects/morphing/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
   ]
-  }
+}
