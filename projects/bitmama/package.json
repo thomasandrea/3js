@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^5.4.11"
+    "vite": "^5.4.14"
   },
   "dependencies": {
     "@splinetool/loader": "^1.9.31",
