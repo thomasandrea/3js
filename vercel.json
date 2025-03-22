@@ -3,8 +3,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/projects/bitmama/(.*)", "destination": "/bitmama/$1" },
-    { "source": "/projects/morphing/(.*)", "destination": "/morphing/$1" },
+    { "source": "/projects/bitmama/(.*)", "destination": "/projects/bitmama/$1" },
+    { "source": "/projects/morphing/(.*)", "destination": "/projects/morphing/$1" },
     { "source": "/", "destination": "/index.html" }
   ],
   "builds": [
