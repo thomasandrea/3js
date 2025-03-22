@@ -4,6 +4,7 @@ import * as CANNON from "cannon-es";
 import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 import { boundarySizes, shifts } from "./physics.js";
+import bitSplineUrl from '/bit.splinecode?url';
 
 const appState = {
   currentAnimation: null,
@@ -48,7 +49,7 @@ export function loadSplineScene(scene, world, camera, renderer) {
     "Banana",
   ];
 
-  loader.load("./bit.splinecode", (splineScene) => {
+  loader.load(bitSplineUrl, (splineScene) => {
     scene.add(splineScene);
     updateSpherePosition(referenceSphere, camera, 1000);
     scene.add(referenceSphere);

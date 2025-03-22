@@ -1,15 +1,19 @@
-
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "rewrites": [
-    { "source": "/projects/bitmama/(.*)", "destination": "/projects/bitmama/$1" },
-    { "source": "/projects/morphing/(.*)", "destination": "/projects/morphing/$1" },
-    { "source": "/", "destination": "/index.html" }
-  ],
+  "version": 2,
   "builds": [
-    { "src": "projects/bitmama/package.json", "use": "@vercel/node" },
-    { "src": "projects/morphing/package.json", "use": "@vercel/node" },
-    { "src": "index.html", "use": "@vercel/static" }
+    { 
+      "src": "package.json", 
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npm run build",
+        "outputDirectory": "dist"
+      }
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/projects/bitmama/(.*)", "dest": "/projects/bitmama/$1" },
+    { "src": "/projects/morphing/(.*)", "dest": "/projects/morphing/$1" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }

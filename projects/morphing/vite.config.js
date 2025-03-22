@@ -2,12 +2,14 @@ import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
-  root: path.resolve(__dirname), // Assicura che index.html venga trovato
+  root: path.resolve(__dirname),
+  base: '/projects/morphing/',
   build: {
-    outDir: path.resolve(__dirname, '../../dist/projects/morphing'), // Salva nella cartella corretta
-    emptyOutDir: false, // Evita che la cartella venga cancellata
+    outDir: 'dist',
+    emptyOutDir: true,
+    copyPublicDir: true,
     rollupOptions: {
-      input: path.resolve(__dirname, 'index.html') // Include index.html
+      input: path.resolve(__dirname, 'index.html')
     },
   },
 });
