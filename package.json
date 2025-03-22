@@ -1,11 +1,13 @@
 {
   "name": "monorepo",
   "private": true,
-  
-    "scripts": {
-      "build": "npm run build:bitmama && npm run build:morphing && npm run copy:index",
-      "build:bitmama": "cd projects/bitmama && vite build",
-      "build:morphing": "cd projects/morphing && vite build",
-      "copy:index": "cp index.html dist/index.html"
-    }
+  "scripts": {
+    "build": "npm run build:bitmama && npm run build:morphing && npm run copy:index",
+    "build:bitmama": "cd projects/bitmama && vite build",
+    "build:morphing": "cd projects/morphing && vite build",
+    "copy:index": "cp index.html dist/index.html"
+  },
+  "devDependencies": {
+    "vite": "^6.2.2"
+  }
 }
