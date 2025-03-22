@@ -1,17 +1,13 @@
-// vite.config.js
-import glsl from 'vite-plugin-glsl'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
-	plugins: [glsl()], 
+  root: path.resolve(__dirname), // Assicura che index.html venga trovato
   build: {
-    outDir: path.resolve(__dirname, '../../dist/morphing'),
-    emptyOutDir: false, // Disabilita la cancellazione automatica
+    outDir: path.resolve(__dirname, '../../dist/projects/morphing'), // Salva nella cartella corretta
+    emptyOutDir: false, // Evita che la cartella venga cancellata
     rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'main.js'),
-      },
+      input: path.resolve(__dirname, 'index.html') // Include index.html
     },
   },
 });

@@ -12,7 +12,8 @@
       }
     ],
     "routes": [
-      { "src": "/bitmama/(.*)", "dest": "/dist/bitmama/$1" },
-      { "src": "/morphing/(.*)", "dest": "/dist/morphing/$1" }
-    ]
+    { "src": "/bitmama/(.*)", "dest": "/dist/bitmama/$1" },
+    { "src": "/morphing/(.*)", "dest": "/dist/morphing/$1" },
+    { "src": "/(.*)", "dest": "/dist/$1" }
+  ]
   }
