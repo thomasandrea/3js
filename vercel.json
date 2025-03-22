@@ -9,8 +9,12 @@
       "dest": "/projects/morphing/$1"
     },
     {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/$1"
+      "status": 404
     }
   ]
 }

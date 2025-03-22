@@ -7,9 +7,5 @@
       "build:bitmama": "cd projects/bitmama && vite build",
       "build:morphing": "cd projects/morphing && vite build",
       "copy:index": "cp index.html dist/index.html"
-    },
-  "dependencies": {},
-  "devDependencies": {
-    "vite": "^5.4.11"
-  }
+    }
 }
