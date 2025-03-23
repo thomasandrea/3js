@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite';
+import glsl from 'vite-plugin-glsl';
 import path from 'path';
 
 export default defineConfig({
+  plugins:[glsl()],
   root: path.resolve(__dirname),
   base: '/projects/morphing/',
   build: {

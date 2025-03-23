@@ -4,6 +4,14 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as dat from 'lil-gui'
 import { AmbientLight, DirectionalLight } from 'three'
 
+import vertex from './src/shaders/vertex.glsl';
+import fragment from './src/shaders/fragment.glsl';
+
+import monkeySrc from '/3d-models/monkey-head/scene.gltf?url';
+
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler.js'
+
 /**
  * Debug
  */
@@ -14,19 +22,38 @@ import { AmbientLight, DirectionalLight } from 'three'
  */
 const scene = new THREE.Scene()
 // scene.background = new THREE.Color(0xdedede)
+const loader = new GLTFLoader();
 
+
+loader.load(monkeySrc, (gltf) => {
+	//const model = gltf.scene
+	//scene.add(model)
+	let model
+	gltf.scene.traverse((el)=> {
+		if(el instanceof THREE.Mesh) {
+			model = el;
+
+		}
+	})
+	const sampler = new MeshSurfaceSampler(model).build()
+	createParticles(sampler)
+
+
+
+
+});
 
 /* *
  * BOX
  */
 //const material = new THREE.MeshNormalMaterial()
-const material = new THREE.MeshStandardMaterial({ color: 'coral' })
-const geometry = new THREE.BoxGeometry(1, 1, 1) 
+/*const material = new THREE.MeshStandardMaterial({ color: 'coral' })
+const geometry = new THREE.BoxGeometry(1, 1, 1) */
 
 /**
  * Plane
  */
-const groundMaterial = new THREE.MeshStandardMaterial({ color: 'lightgray' })
+/* const groundMaterial = new THREE.MeshStandardMaterial({ color: 'lightgray' })
 const groundGeometry = new THREE.PlaneGeometry(10, 10)
 groundGeometry.rotateX(-Math.PI * 0.5)
 const ground = new THREE.Mesh(groundGeometry, groundMaterial)
@@ -34,7 +61,78 @@ scene.add(ground)
 
 const mesh = new THREE.Mesh(geometry, material)
 mesh.position.y += 0.5
-scene.add(mesh) 
+scene.add(mesh)  */
+
+
+
+
+const uniforms= {
+	uTime: { value:0}
+
+}
+
+
+const clock= new THREE.Clock()
+
+function createParticles(sampler) {
+	const geometry= new THREE.BufferGeometry();
+const num= 1000;
+const bound= 20;
+const positionArray = new Float32Array(num * 3)
+const colorArray = new Float32Array(num*3);
+const offsetArray = new Float32Array(num);
+
+
+
+
+
+
+const pos =new THREE.Vector3()
+
+for (let index = 0; index < num; index++) {
+	/*const x = Math.random()* bound -bound/2;
+	const y = Math.random()* bound -bound/2;
+	const z = Math.random()* bound -bound/2;*/
+	
+	const [x,y,z] = pos;
+
+	sampler.sample(pos)
+
+	
+	const r= Math.random();
+	const g= Math.random();
+	const b= Math.random();
+
+	positionArray.set([x,y,z], index*3);
+	colorArray.set([r,g,b], index*3);
+
+	offsetArray[index]=Math.random()
+
+}
+
+geometry.setAttribute("position", new THREE.BufferAttribute(positionArray,3))
+geometry.setAttribute("color", new THREE.BufferAttribute(colorArray,3))
+geometry.setAttribute("offset", new THREE.BufferAttribute(offsetArray,1))
+
+const material= new THREE.ShaderMaterial({
+	uniforms: {
+		...uniforms
+	},
+	fragmentShader:fragment,
+	vertexShader:vertex,
+	transparent:true,
+	depthWrite: false,
+	blending: THREE.AdditiveBlending
+})
+
+
+const particles= new THREE.Points(geometry, material)
+scene.add(particles)
+console.log(positionArray)
+
+
+
+}
 
 /**
  * render sizes
@@ -98,6 +196,10 @@ function tic() {
 	 * tempo totale trascorso dall'inizio
 	 */
 	// const time = clock.getElapsedTime()
+
+	const time= clock.getElapsedTime();
+uniforms.uTime.value= time
+
 
 	controls.update()
 
