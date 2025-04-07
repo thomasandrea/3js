@@ -5,8 +5,8 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 // __controls_import__
 // __gui_import__
 
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { Pane } from "tweakpane";
+//import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+//import { Pane } from "tweakpane";
 
 import vertex from './shaders/world/vertex.glsl'
 import fragment from './shaders/world/fragment.glsl'

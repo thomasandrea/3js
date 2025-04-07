@@ -3,9 +3,9 @@
   "private": true,
   "scripts": {
     "build": "npm run build:bitmama && npm run build:morphing  && npm run build:ig && npm run build:copy",
-    "build:bitmama": "cd projects/bitmama && npm run build",
-    "build:morphing": "cd projects/morphing && npm run build",
-    "build:ig": "cd projects/ig && npm run build",
+    "build:bitmama": "cd projects/bitmama  && npm instal && npm run build",
+    "build:morphing": "cd projects/morphing && npm instal && npm run build",
+    "build:ig": "cd projects/ig && npm instal &&  npm run build",
     "copy:index": "cp index.html dist/index.html",
     "build:copy": "mkdir -p dist/projects/bitmama dist/projects/morphing dist/projects/ig && cp -r projects/bitmama/dist/* dist/projects/bitmama/ && cp -r projects/morphing/dist/* dist/projects/morphing/ && cp -r projects/ig/dist/* dist/projects/ig/ && cp index.html dist/"
   },
