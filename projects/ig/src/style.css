@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+
+
+	
+}
+
+
+html,
+body {
+	color: #003478;
+	/* overflow: hidden; */
+	
+	/*height: 100vh;*/
+}
+
+
+.backgroundFixed {
+	background: linear-gradient(180deg, #F7F9FB 20.62%, rgba(174, 207, 225, 0.5) 100%);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	height: 100vh;
+	position: fixed;
+	inset: 0;
+}
+
+
+canvas {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+}
+
+#app {
+	@apply z-50 relative;
+	height:2000px;
+}
+.section-content {
+	color: #003478;
+}
