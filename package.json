@@ -7,7 +7,7 @@
     "build:morphing": "cd projects/morphing && npm run build",
     "build:ig": "cd projects/ig && npm run build",
     "copy:index": "cp index.html dist/index.html",
-    "build:copy": "mkdir -p dist/projects/bitmama dist/projects/morphing && cp -r projects/bitmama/dist/* dist/projects/bitmama/ && cp -r projects/morphing/dist/* dist/projects/morphing/ && cp -r projects/morphing/dist/* dist/projects/ig/ && cp index.html dist/"
+    "build:copy": "mkdir -p dist/projects/bitmama dist/projects/morphing dist/projects/ig && cp -r projects/bitmama/dist/* dist/projects/bitmama/ && cp -r projects/morphing/dist/* dist/projects/morphing/ && cp -r projects/ig/dist/* dist/projects/ig/ && cp index.html dist/"
   },
   "dependencies": {
     "create-3": "^0.4.7"
