@@ -14,6 +14,7 @@
     { "handle": "filesystem" },
     { "src": "/projects/bitmama/(.*)", "dest": "/projects/bitmama/$1" },
     { "src": "/projects/morphing/(.*)", "dest": "/projects/morphing/$1" },
+    { "src": "/projects/ig/(.*)", "dest": "/projects/ig/$1" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }
