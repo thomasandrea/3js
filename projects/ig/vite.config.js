@@ -1,7 +1,15 @@
-// vite.config.js
-import glsl from 'vite-plugin-glsl'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
-	plugins: [glsl()],
-})
+  root: path.resolve(__dirname),
+  base: '/projects/ig/',
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    copyPublicDir: true,
+    rollupOptions: {
+      input: path.resolve(__dirname, 'index.html')
+    },
+  },
+});
