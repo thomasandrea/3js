@@ -148,7 +148,7 @@ backgroundPlane.position.z = -100;
 //scene.add(backgroundPlane)*/
 
 
-textureLoader.load("textures/cloud/cloud-1.png", (texture) => {
+textureLoader.load("/textures/cloud/cloud-1.png", (texture) => {
   const imageAspect = texture.image.width / texture.image.height;
   const height = 0.5; // o quello che vuoi
   const width = height * imageAspect;
@@ -187,7 +187,7 @@ textureLoader.load("textures/cloud/cloud-1.png", (texture) => {
   scene.add(cloud);
 });
 
-textureLoader.load("textures/cloud/cloud-2.png", (texture) => {
+textureLoader.load("/textures/cloud/cloud-2.png", (texture) => {
   const imageAspect = texture.image.width / texture.image.height;
   const height = 0.5; // o quello che vuoi
   const width = height * imageAspect;
@@ -233,7 +233,7 @@ textureLoader.load("textures/cloud/cloud-2.png", (texture) => {
 //scene.background = backgroundTexture;
 
 
-const backgroundTexture = textureLoader.load('textures/bg-02.jpg');
+const backgroundTexture = textureLoader.load('/textures/bg-02.jpg');
 
 const geometryBackground = new THREE.PlaneGeometry(2, 2); // copre da -1 a 1 in x/y
 const materialBackground = new THREE.MeshBasicMaterial({
