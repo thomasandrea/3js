@@ -21,7 +21,6 @@ body {
 	position: relative;
 }
 
-
 .logo {
 	position:fixed;
 	top: 20px;
@@ -70,4 +69,11 @@ canvas {
 }
 canvas {
 	z-index: 1;
+}
+
+
+#secondSceneText {
+	position:fixed;
+	top: 45%;
+	opacity:0;
 }

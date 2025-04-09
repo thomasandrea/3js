@@ -56,7 +56,7 @@ vec3 wPos = worldPosition.xyz;
   vDistance = smoothstep(16.0, 12., dist);
   
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-  gl_PointSize = 13. * vDistance  ;
+  gl_PointSize = 20. * vDistance  ;
 
 
 

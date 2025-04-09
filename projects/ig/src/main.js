@@ -16,11 +16,18 @@ import vertexTree from "./shaders/tree/vertex.glsl";
 import fragmentTree from "./shaders/tree/fragment.glsl";
 
 
+import vertexHill from "./shaders/hill/vertex.glsl";
+import fragmentHill from "./shaders/hill/fragment.glsl";
+
 
 import globeSrc from "/models/globe/world2.gltf?url";
 
 //import woodsSrc from "/models/japan2/scene.gltf?url";
-import woodsSrc from "/models/tree/scene.gltf?url";
+//import woodsSrc from "/models/tree/scene.gltf?url";
+//import woodsSrc from "/models/tree/scene.gltf?url";
+
+import woodsSrc from "/models/alberi-no-collina/alberi-no-collina.gltf?url";
+import hillSrc from "/models/collina/collina.gltf?url";
 
 
 
@@ -79,6 +86,7 @@ const overlayCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 const models = {
   globe: null,
   woods: null,
+  hill:null
 };
 
 /*
@@ -98,9 +106,41 @@ loader.load(woodsSrc, (gltf) => {
   // Unisci tutte le geometrie
   const mergedGeometry = mergeGeometries(geometries, true);
   const mergedMesh = new THREE.Mesh(mergedGeometry, material);
-
   scene.add(mergedMesh);
 });*/
+
+loader.load(hillSrc, (gltf) => {
+  //return
+  let model;
+  gltf.scene.traverse((el) => {
+    if (el instanceof THREE.Mesh) {
+      model = el;
+    }
+  });
+
+  model.geometry.scale(20, 2, 20);
+  //model.geometry.center();
+  //models.globe=model;
+  //model.geometry.rotateY(Math.PI);
+
+  
+  model.geometry.rotateY(-Math.PI * 0.5);
+
+  //scene.add(model)
+  //model.geometry.rotateY(-Math.PI );
+  //model.geometry.rotateX(Math.PI * 0.5);
+
+  models.hill = createParticlesFromMesh(model, vertexHill, fragmentHill);
+  models.hill.position.set(0, -4.5, -20);
+
+  //model.geometry.rotateZ(Math.PI * 0.5)
+
+  //models.monkey = model;
+  // const sampler = new MeshSurfaceSampler(model).build()
+  // createParticles(sampler)
+});
+
+
 
 loader.load(globeSrc, (gltf) => {
   //return
@@ -137,11 +177,11 @@ loader.load(woodsSrc, (gltf) => {
       model = el;
     }
   });
-  //model.geometry.scale(1.75, 1.75, 1.75)
-  //model.geometry.rotateX(Math.PI * 0.5)
+  model.geometry.scale(120,120,120)
+  model.geometry.rotateX(-Math.PI * 0.5)
   //model.geometry.rotateX(2 * Math.PI * 0.5);
   model.geometry.center();
-  model.geometry.scale(0.5, 0.5, 0.5);
+  //model.geometry.scale(0.5, 0.5, 0.5);
   //model.geometry.rotateY(Math.PI * 0.5);
 
   //model.geometry.scale(0.005, 0.005, 0.005);
@@ -152,7 +192,10 @@ loader.load(woodsSrc, (gltf) => {
 
   //model.position.set(0,0, -50);
 
+  //models.woods = createParticlesFromMesh(model, vertexTree, fragmentTree);
   models.woods = createParticlesFromMesh(model, vertexTree, fragmentTree);
+
+  
   models.woods.position.set(0, 0, -20);
 
   //scene.add(model)
@@ -248,11 +291,6 @@ textureLoader.load(cloud2Texture, (texture) => {
 
 
 
-
-
-
-
-
 //const backgroundTexture = textureLoader.load('textures/bg-02.jpg');
 //scene.background = backgroundTexture;
 
@@ -294,6 +332,46 @@ function updateBackgroundWithFade() {
     duration: 0.5
   });
 }
+
+function updateFirsSceneText() {
+  const bg = document.querySelector('#firstSceneText');
+  // Calcola l'opacità e la scala in base alla posizione della camera
+  const maxDistance = -1;  // Inizio della transizione
+  const minDistance = 0; // Fine della transizione
+  const normalizedPosition = THREE.MathUtils.clamp((camera.position.z - maxDistance) / (minDistance - maxDistance), 0, 1);
+  const opacity = normalizedPosition; // Lineare da 0 a 1
+  const scale = 1 + normalizedPosition * 0.2; // Scala cresce fino a 1.2
+
+  // Applica le modifiche con GSAP
+  gsap.to(bg, {
+    opacity: opacity,
+    duration: 0.5
+  });
+}
+
+function updateSecondSceneText() {
+  const bg = document.querySelector('#secondSceneText');
+  // Calcola l'opacità e la scala in base alla posizione della camera
+
+  const minDistance = -4; // Fine della transizione
+  const maxDistance = 0;  // Inizio della transizione
+  
+  const normalizedPosition = THREE.MathUtils.clamp((camera.position.z - maxDistance) / (minDistance - maxDistance), 0, 1);
+
+  const opacity = normalizedPosition; // Lineare da 0 a 1
+  const scale = 1 + normalizedPosition * 0.2; // Scala cresce fino a 1.2
+
+  // Applica le modifiche con GSAP
+  gsap.to(bg, {
+    opacity: opacity,
+    duration: 0.5
+  });
+}
+
+
+
+
+
 
 /*
 //nuvole
@@ -393,7 +471,7 @@ const camera = new THREE.PerspectiveCamera(
   fov,
   sizes.width / sizes.height,
   0.1,
-  100
+  200
 );
 //camera.position.set(3, 1, 3);
 //camera.lookAt(new THREE.Vector3(0, 2.5, 0));
@@ -461,6 +539,7 @@ const renderer = new THREE.WebGLRenderer({
   antialias: window.devicePixelRatio < 2,
   alpha: true,
 });
+renderer.setPixelRatio(1);
 //renderer.setClearColor(0x000000, 0);
 //renderer.gammaOutput = true;
 //renderer.gammaFactor = 2.2;
@@ -575,6 +654,8 @@ function createParticlesFromMesh(mesh, vertexSheader, fragmentShader) {
   return particles;
 }
 
+
+
 /**
  * frame loop
  */
@@ -603,6 +684,8 @@ function tic() {
   //controls.update();
   stepCamera(config.progress);
  updateBackgroundWithFade()
+ updateFirsSceneText()
+ updateSecondSceneText()
 
 
  renderer.autoClear = false;
@@ -637,6 +720,6 @@ function handleResize() {
 
   renderer.setSize(sizes.width, sizes.height);
 
-  const pixelRatio = Math.min(window.devicePixelRatio, 2);
-  renderer.setPixelRatio(pixelRatio);
+  //const pixelRatio = Math.min(window.devicePixelRatio, 2);
+  //renderer.setPixelRatio(pixelRatio);
 }
