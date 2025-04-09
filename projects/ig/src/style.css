@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html {
 
 
@@ -14,10 +13,22 @@ html,
 body {
 	color: #003478;
 	/* overflow: hidden; */
-	
 	/*height: 100vh;*/
 }
 
+.titleMain {
+	z-index: 10;
+	position: relative;
+}
+
+
+.logo {
+	position:fixed;
+	top: 20px;
+	left: 5rem;
+	width: 140px;
+	z-index:3;
+}
 
 .backgroundFixed {
 	background: linear-gradient(180deg, #F7F9FB 20.62%, rgba(174, 207, 225, 0.5) 100%);
@@ -27,7 +38,17 @@ body {
 	position: fixed;
 	inset: 0;
 }
-
+.backgroundFixed2Scene {
+	background: url('./textures/bg-02.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 100vh;
+	position: fixed;
+	transform:scale(1);
+	inset: 0;
+	opacity:0;
+}
 
 canvas {
 	position: fixed;
@@ -36,9 +57,17 @@ canvas {
 }
 
 #app {
-	@apply z-50 relative;
+	@apply relative;
 	height:2000px;
+	z-index: 20;
 }
 .section-content {
 	color: #003478;
+	z-index:2;
+}
+.section-content__wrapper {
+	margin-left: 5rem;
+}
+canvas {
+	z-index: 1;
 }

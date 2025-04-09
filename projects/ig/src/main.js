@@ -8,11 +8,19 @@ import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js
 //import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 //import { Pane } from "tweakpane";
 
-import vertex from "./shaders/world/vertex.glsl";
-import fragment from "./shaders/world/fragment.glsl";
+import vertexWorld from "./shaders/world/vertex.glsl";
+import fragmentWorld from "./shaders/world/fragment.glsl";
+
+
+import vertexTree from "./shaders/tree/vertex.glsl";
+import fragmentTree from "./shaders/tree/fragment.glsl";
+
+
 
 import globeSrc from "/models/globe/world2.gltf?url";
-import woodsSrc from "/models/japan2/scene.gltf?url";
+
+//import woodsSrc from "/models/japan2/scene.gltf?url";
+import woodsSrc from "/models/tree/scene.gltf?url";
 
 
 
@@ -113,7 +121,7 @@ loader.load(globeSrc, (gltf) => {
   //model.geometry.rotateY(-Math.PI );
   //model.geometry.rotateX(Math.PI * 0.5);
 
-  models.globe = createParticlesFromMesh(model);
+  models.globe = createParticlesFromMesh(model, vertexWorld, fragmentWorld);
   models.globe.position.set(0, 0, -0.6);
   //model.geometry.rotateZ(Math.PI * 0.5)
 
@@ -133,15 +141,18 @@ loader.load(woodsSrc, (gltf) => {
   //model.geometry.rotateX(Math.PI * 0.5)
   //model.geometry.rotateX(2 * Math.PI * 0.5);
   model.geometry.center();
-  model.geometry.scale(0.005, 0.005, 0.005);
-  model.geometry.rotateY(Math.PI * 0.5);
-  model.geometry.rotateZ(Math.PI * 0.5);
+  model.geometry.scale(0.5, 0.5, 0.5);
+  //model.geometry.rotateY(Math.PI * 0.5);
+
+  //model.geometry.scale(0.005, 0.005, 0.005);
+  //model.geometry.rotateY(Math.PI * 0.5);
+  //model.geometry.rotateZ(Math.PI * 0.5);
   //model.geometry.translate(0, 0, -50);
   //model.geometry.rotateZ( Math.PI /.5);
 
   //model.position.set(0,0, -50);
 
-  models.woods = createParticlesFromMesh(model);
+  models.woods = createParticlesFromMesh(model, vertexTree, fragmentTree);
   models.woods.position.set(0, 0, -20);
 
   //scene.add(model)
@@ -265,20 +276,23 @@ let isBackgroundVisible = false;
 
 
 function updateBackgroundWithFade() {
-  console.log(camera.position.z)
-  if (camera.position.z < -12 && !isBackgroundVisible) {
-    isBackgroundVisible = true;
-    gsap.to(quad.material, {
-      opacity: 1,
-      duration: 1
-    });
-  } else if (camera.position.z >= -12 && isBackgroundVisible) {
-    isBackgroundVisible = false;
-    gsap.to(quad.material, {
-      opacity: 0,
-      duration: 1
-    });
-  }
+  const bg = document.querySelector('#bgSecondScene');
+
+  // Calcola l'opacità e la scala in base alla posizione della camera
+  const maxDistance = -5;  // Inizio della transizione
+  const minDistance = -12; // Fine della transizione
+
+  const normalizedPosition = THREE.MathUtils.clamp((camera.position.z - maxDistance) / (minDistance - maxDistance), 0, 1);
+  
+  const opacity = normalizedPosition; // Lineare da 0 a 1
+  const scale = 1 + normalizedPosition * 0.2; // Scala cresce fino a 1.2
+
+  // Applica le modifiche con GSAP
+  gsap.to(bg, {
+    opacity: opacity,
+    scale: scale,
+    duration: 0.5
+  });
 }
 
 /*
@@ -407,11 +421,11 @@ const tube = new THREE.Mesh(tubeGeom, tubeMat);
 //scene.add(tube)
 const state = { progress: 0 };
 
-function stepCamera(progress, delta = 0.001) {
+function stepCamera(progress, delta = 0.0001) {
   const pos = curve.getPointAt(progress);
-  const pos2 = curve.getPointAt(Math.min(progress + delta, 1));
+  //const pos2 = curve.getPointAt(Math.min(progress + delta, 1));
   camera.position.copy(pos);
-  camera.lookAt(pos2);
+  //camera.lookAt(pos2);
 }
 
 stepCamera(0);
@@ -431,12 +445,14 @@ gsap.to(config, {
   },
 });
 
+
+
 /**
  * Show the axes of coordinates system
  */
 // __helper_axes__
-const axesHelper = new THREE.AxesHelper(3);
-scene.add(axesHelper);
+//const axesHelper = new THREE.AxesHelper(3);
+//scene.add(axesHelper);
 
 /**
  * renderer
@@ -481,7 +497,7 @@ const clock = new THREE.Clock();
 
 /*functions */
 
-function createParticlesFromMesh(mesh) {
+function createParticlesFromMesh(mesh, vertexSheader, fragmentShader) {
   const uniforms = {
     uTime: { value: 0 },
     uProgress: { value: 0 },
@@ -542,8 +558,8 @@ function createParticlesFromMesh(mesh) {
     uniforms: {
       ...uniforms,
     },
-    vertexShader: vertex,
-    fragmentShader: fragment,
+    vertexShader: vertexSheader,
+    fragmentShader: fragmentShader,
     transparent: true,
     depthWrite: false,
     blending: THREE.NormalBlending,
@@ -592,8 +608,8 @@ function tic() {
  renderer.autoClear = false;
 
   // 1️⃣ Renderizza prima il full-screen quad (overlay)
-  renderer.clear(); // pulisce il buffer prima del primo render
-  renderer.render(overlayScene, overlayCamera);
+  //renderer.clear(); // pulisce il buffer prima del primo render
+  //renderer.render(overlayScene, overlayCamera);
 
   // 2️⃣ Poi renderizza sopra la scena principale
   renderer.clearDepth(); // importante per resettare il depth buffer
