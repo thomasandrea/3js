@@ -336,7 +336,7 @@ function updateBackgroundWithFade() {
 function updateFirsSceneText() {
   const bg = document.querySelector('#firstSceneText');
   // Calcola l'opacità e la scala in base alla posizione della camera
-  const maxDistance = -1;  // Inizio della transizione
+  const maxDistance = -.9;  // Inizio della transizione
   const minDistance = 0; // Fine della transizione
   const normalizedPosition = THREE.MathUtils.clamp((camera.position.z - maxDistance) / (minDistance - maxDistance), 0, 1);
   const opacity = normalizedPosition; // Lineare da 0 a 1
@@ -345,7 +345,7 @@ function updateFirsSceneText() {
   // Applica le modifiche con GSAP
   gsap.to(bg, {
     opacity: opacity,
-    duration: 0.5
+   // duration: 0.5
   });
 }
 
@@ -353,7 +353,7 @@ function updateSecondSceneText() {
   const bg = document.querySelector('#secondSceneText');
   // Calcola l'opacità e la scala in base alla posizione della camera
 
-  const minDistance = -4; // Fine della transizione
+  const minDistance = -3; // Fine della transizione
   const maxDistance = 0;  // Inizio della transizione
   
   const normalizedPosition = THREE.MathUtils.clamp((camera.position.z - maxDistance) / (minDistance - maxDistance), 0, 1);
@@ -364,7 +364,7 @@ function updateSecondSceneText() {
   // Applica le modifiche con GSAP
   gsap.to(bg, {
     opacity: opacity,
-    duration: 0.5
+    //duration: 0.5
   });
 }
 

@@ -38,7 +38,7 @@ body {
 	inset: 0;
 }
 .backgroundFixed2Scene {
-	background: url('./textures/bg-02.jpg');
+	background: url('/textures/bg-02.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
