@@ -11,7 +11,9 @@ html {
 
 html,
 body {
+	font-family: 'Open Sans', sans-serif;
 	color: #003478;
+	height: 100%;
 	/* overflow: hidden; */
 	/*height: 100vh;*/
 }
@@ -24,9 +26,12 @@ body {
 .logo {
 	position:fixed;
 	top: 20px;
-	left: 5rem;
+	left: 2rem;
 	width: 140px;
 	z-index:3;
+	@media (min-width: 768px) {
+		margin-left: 5rem;
+	}
 }
 
 .backgroundFixed {
@@ -65,15 +70,21 @@ canvas {
 	z-index:2;
 }
 .section-content__wrapper {
-	margin-left: 5rem;
+	margin-left: 2rem;
+	@media (min-width: 768px) {
+		margin-left: 5rem;
+	}
 }
 canvas {
 	z-index: 1;
 }
-
 
 #secondSceneText {
 	position:fixed;
 	top: 45%;
 	opacity:0;
 }
+#firstSceneText {
+	opacity:0;
+}
+

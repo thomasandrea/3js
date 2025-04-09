@@ -18,5 +18,5 @@ void main() {
   vCameraDistance = -cameraPosition.z; // Nota il segno negativo
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-  gl_PointSize = 20. * vDistance;
+  gl_PointSize = 10. * vDistance;
 }

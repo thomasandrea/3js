@@ -21,31 +21,16 @@ import fragmentHill from "./shaders/hill/fragment.glsl";
 
 
 import globeSrc from "/models/globe/world2.gltf?url";
-
-//import woodsSrc from "/models/japan2/scene.gltf?url";
-//import woodsSrc from "/models/tree/scene.gltf?url";
-//import woodsSrc from "/models/tree/scene.gltf?url";
-
 import woodsSrc from "/models/alberi-no-collina/alberi-no-collina.gltf?url";
 import hillSrc from "/models/collina/collina.gltf?url";
 
-
-
 import cloud1Texture from '/textures/cloud/cloud-1.png?url';
 import cloud2Texture from '/textures/cloud/cloud-2.png?url';
-
-import backgroundSceneTexture from '/textures/bg-02.jpg?url';
-
+//import backgroundSceneTexture from '/textures/bg-02.jpg?url';
 import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-
-
-
-
-
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,7 +39,6 @@ gsap.registerPlugin(ScrollTrigger);
  */
 // __gui__
 const config = {
-  example: 5,
   progress: 0,
 };
 
@@ -72,7 +56,6 @@ pane
  */
 const scene = new THREE.Scene();
 
-
 //scene.background = new THREE.Color(0xFFFFFF)
 const manager = new THREE.LoadingManager();
 const loader = new GLTFLoader(manager);
@@ -80,8 +63,7 @@ const loader = new GLTFLoader(manager);
 
 
 // === 2. Scena overlay con quad full-screen ===
-const overlayScene = new THREE.Scene();
-const overlayCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+//const overlayScene = new THREE.Scene();
 
 const models = {
   globe: null,
@@ -89,25 +71,6 @@ const models = {
   hill:null
 };
 
-/*
-loader.load(woodsSrc, (gltf) => {
-  const geometries = [];
-  const material = new THREE.MeshStandardMaterial(); // oppure prendi da una delle mesh
-
-  // Traverse tutte le mesh nel modello
-  gltf.scene.traverse((child) => {
-    if (child.isMesh) {
-      child.updateMatrix(); // Applica trasformazioni locali
-      const geom = child.geometry.clone().applyMatrix4(child.matrix);
-      geometries.push(geom);
-    }
-  });
-
-  // Unisci tutte le geometrie
-  const mergedGeometry = mergeGeometries(geometries, true);
-  const mergedMesh = new THREE.Mesh(mergedGeometry, material);
-  scene.add(mergedMesh);
-});*/
 
 loader.load(hillSrc, (gltf) => {
   //return
@@ -119,25 +82,9 @@ loader.load(hillSrc, (gltf) => {
   });
 
   model.geometry.scale(20, 2, 20);
-  //model.geometry.center();
-  //models.globe=model;
-  //model.geometry.rotateY(Math.PI);
-
-  
   model.geometry.rotateY(-Math.PI * 0.5);
-
-  //scene.add(model)
-  //model.geometry.rotateY(-Math.PI );
-  //model.geometry.rotateX(Math.PI * 0.5);
-
   models.hill = createParticlesFromMesh(model, vertexHill, fragmentHill);
   models.hill.position.set(0, -4.5, -20);
-
-  //model.geometry.rotateZ(Math.PI * 0.5)
-
-  //models.monkey = model;
-  // const sampler = new MeshSurfaceSampler(model).build()
-  // createParticles(sampler)
 });
 
 
@@ -151,23 +98,9 @@ loader.load(globeSrc, (gltf) => {
     }
   });
 
-  //model.geometry.scale(3, 3, 3);
-  //model.geometry.center();
-  //models.globe=model;
-  //model.geometry.rotateY(Math.PI);
   model.geometry.rotateX(-Math.PI * 0.5);
-
-  //scene.add(model)
-  //model.geometry.rotateY(-Math.PI );
-  //model.geometry.rotateX(Math.PI * 0.5);
-
   models.globe = createParticlesFromMesh(model, vertexWorld, fragmentWorld);
   models.globe.position.set(0, 0, -0.6);
-  //model.geometry.rotateZ(Math.PI * 0.5)
-
-  //models.monkey = model;
-  // const sampler = new MeshSurfaceSampler(model).build()
-  // createParticles(sampler)
 });
 
 loader.load(woodsSrc, (gltf) => {
@@ -181,22 +114,8 @@ loader.load(woodsSrc, (gltf) => {
   model.geometry.rotateX(-Math.PI * 0.5)
   //model.geometry.rotateX(2 * Math.PI * 0.5);
   model.geometry.center();
-  //model.geometry.scale(0.5, 0.5, 0.5);
-  //model.geometry.rotateY(Math.PI * 0.5);
-
-  //model.geometry.scale(0.005, 0.005, 0.005);
-  //model.geometry.rotateY(Math.PI * 0.5);
-  //model.geometry.rotateZ(Math.PI * 0.5);
-  //model.geometry.translate(0, 0, -50);
-  //model.geometry.rotateZ( Math.PI /.5);
-
-  //model.position.set(0,0, -50);
-
-  //models.woods = createParticlesFromMesh(model, vertexTree, fragmentTree);
   models.woods = createParticlesFromMesh(model, vertexTree, fragmentTree);
-
-  
-  models.woods.position.set(0, 0, -20);
+  models.woods.position.set(0, 1, -20);
 
   //scene.add(model)
 });
@@ -204,16 +123,6 @@ loader.load(woodsSrc, (gltf) => {
 /* background */
 
 const textureLoader = new THREE.TextureLoader();
-
-/*const geometryPlane = new THREE.PlaneGeometry(50, 50);
-const texture = textureLoader.load("textures/background_tree.png");
-
-const materialPlane = new THREE.MeshBasicMaterial({ map: texture });
-const backgroundPlane = new THREE.Mesh(geometryPlane, materialPlane);
-
-backgroundPlane.position.z = -100;
-//scene.add(backgroundPlane)*/
-
 
 textureLoader.load(cloud1Texture, (texture) => {
   const imageAspect = texture.image.width / texture.image.height;
@@ -270,47 +179,6 @@ textureLoader.load(cloud2Texture, (texture) => {
   scene.add(cloud);
 });
 
-//background
-
-/*textureLoader.load("textures/bg-02.jpg", (texture) => {
-  const imageAspect = texture.image.width / texture.image.height;
-  const height = 3; // o quello che vuoi
-  const width = height * imageAspect;
-
-  const geometry = new THREE.PlaneGeometry(width, height);
-  const material = new THREE.MeshBasicMaterial({
-    map: texture,
-    transparent: true,
-    depthWrite: false,
-  });
-
-  const cloud = new THREE.Mesh(geometry, material);
-  cloud.position.set(1, -0.5, -20);
-  scene.add(cloud);
-});*/
-
-
-
-//const backgroundTexture = textureLoader.load('textures/bg-02.jpg');
-//scene.background = backgroundTexture;
-
-
-const backgroundTexture = textureLoader.load(backgroundSceneTexture);
-
-const geometryBackground = new THREE.PlaneGeometry(2, 2); // copre da -1 a 1 in x/y
-const materialBackground = new THREE.MeshBasicMaterial({
-  map: backgroundTexture,
-  transparent: true,
-  opacity: 0 // parte invisibile se vuoi fare fade-in
-});
-
-const quad = new THREE.Mesh(geometryBackground, materialBackground);
-overlayScene.add(quad);
-
-
-
-
-let isBackgroundVisible = false;
 
 
 function updateBackgroundWithFade() {
@@ -369,40 +237,6 @@ function updateSecondSceneText() {
 }
 
 
-
-
-
-
-/*
-//nuvole
-const cloudTexture1 = textureLoader.load('textures/cloud/cloud-1.png');
-
-
-//const cloudTexture1 = textureLoader.load('textures/woods.jpg');
-const cloudTexture2 = textureLoader.load('textures/cloud/cloud-2.png');
-
-const cloudMaterial1 = new THREE.MeshBasicMaterial({
-  map: cloudTexture1,
-  transparent: true,
-  depthWrite: false // Previene problemi di rendering con la trasparenza
-});
-
-const cloudMaterial2 = new THREE.MeshBasicMaterial({
-  map: cloudTexture2,
-  transparent: true,
-  depthWrite: false // Previene problemi di rendering con la trasparenza
-});
-
-const cloudGeometry = new THREE.PlaneGeometry(1, 1);
-
-const cloudMesh1 = new THREE.Mesh(cloudGeometry, cloudMaterial1);
-const cloudMesh2 = new THREE.Mesh(cloudGeometry, cloudMaterial2);
-
-
-cloudMesh1.position.set(0,0,-.5);
-
-scene.add(cloudMesh1);*/
-
 manager.onStart = (url, itemsLoaded, itemsTotal) => {
   console.log(`Inizio caricamento: ${url}`);
 };
@@ -429,31 +263,6 @@ const urls = ["globe.gltf", "woods.gltf"];
   });
 });*/
 
-// __box__
-/**
- * BOX
- */
-// const material = new THREE.MeshNormalMaterial()
-const material = new THREE.MeshStandardMaterial({ color: "pink" });
-
-const textureImage = new THREE.TextureLoader().load("./wood.jpg", () => {
-  console.log("loaded");
-});
-
-const geometry = new THREE.BoxGeometry(1, 1, 1, 100, 100, 100);
-const mesh = new THREE.Mesh(geometry, material);
-mesh.position.y += 0.5;
-//scene.add(mesh);
-
-// __floor__
-/**
- * Plane
- */
-const groundMaterial = new THREE.MeshStandardMaterial({ color: "lightgray" });
-const groundGeometry = new THREE.PlaneGeometry(10, 10);
-groundGeometry.rotateX(-Math.PI * 0.5);
-const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-//scene.add(ground)
 
 /**
  * render sizes
@@ -643,14 +452,11 @@ function createParticlesFromMesh(mesh, vertexSheader, fragmentShader) {
     depthWrite: false,
     blending: THREE.NormalBlending,
     //blending:THREE.NoBlending,
-
     //blending: THREE.AdditiveBlending,
   });
 
   const particles = new THREE.Points(geometry, material);
-
   scene.add(particles);
-
   return particles;
 }
 
@@ -679,7 +485,6 @@ function tic() {
   //shaderMaterial.uniforms.uProgress.value=time;
   //config.progress=time;
   //console.log(Math.sin(time))
-
   // __controls_update__
   //controls.update();
   stepCamera(config.progress);
@@ -687,19 +492,12 @@ function tic() {
  updateFirsSceneText()
  updateSecondSceneText()
 
-
- renderer.autoClear = false;
-
-  // 1️⃣ Renderizza prima il full-screen quad (overlay)
+ //renderer.autoClear = false;
   //renderer.clear(); // pulisce il buffer prima del primo render
   //renderer.render(overlayScene, overlayCamera);
 
-  // 2️⃣ Poi renderizza sopra la scena principale
-  renderer.clearDepth(); // importante per resettare il depth buffer
+  //renderer.clearDepth(); // importante per resettare il depth buffer
   renderer.render(scene, camera);
-
-
-
   requestAnimationFrame(tic);
 }
 
@@ -717,9 +515,7 @@ function handleResize() {
 
   // camera.aspect = sizes.width / sizes.height;
   camera.updateProjectionMatrix();
-
   renderer.setSize(sizes.width, sizes.height);
-
   //const pixelRatio = Math.min(window.devicePixelRatio, 2);
   //renderer.setPixelRatio(pixelRatio);
 }
