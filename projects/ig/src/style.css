@@ -14,8 +14,21 @@ body {
 	font-family: 'Open Sans', sans-serif;
 	color: #003478;
 	height: 100%;
+	padding:0;
+	margin:0;
+	overscroll-behavior: none;
+
+	/*overscroll-behavior: none;*/
+  /*overscroll-behavior: none;*/
+	/*overflow: hidden;*/
 	/* overflow: hidden; */
 	/*height: 100vh;*/
+}
+
+.scrollable-content {
+	height: 100%;
+  /*overflow-y: auto;*/
+
 }
 
 .titleMain {
@@ -26,7 +39,8 @@ body {
 .logo {
 	position:fixed;
 	top: 20px;
-	left: 2rem;
+	left:0;
+	margin-left: 2rem;
 	width: 140px;
 	z-index:3;
 	@media (min-width: 768px) {
@@ -86,5 +100,7 @@ canvas {
 }
 #firstSceneText {
 	opacity:0;
+	position:fixed;
+	bottom:8%;
 }
 

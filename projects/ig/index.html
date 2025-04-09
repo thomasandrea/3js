@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="icon" type="image/webp" sizes="16x16" href="/images/favicon-16x16.webp">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 				<link rel="preload" as="style" href="//fonts.googleapis.com/css?family=Open+Sans:300|Open+Sans:400|Open+Sans:700&display=swap" />
@@ -17,20 +17,23 @@
     <div class="backgroundFixed"></div>
     <div class="backgroundFixed2Scene" id="bgSecondScene"></div>
 
-    <section class=" mb-[50vh] fixed section-content  w-full">
-      <div class="container">
-        <div class="flex items-end pb-5  h-screen">
-          <div class="section-content__wrapper" id="firstSceneText">
-            <h1 class="text-[40px] sm:text-[40px] md:text-[76px] uppercase leading-none font-extrabold">
-              Power<br> to earth
-            </h1>
-            <p class="ext-[24px]">La rivoluzione del gas rinnovabile</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    
     
       <div id="app" class="">
+
+        <section class=" mb-[50vh] fixed section-content  w-full">
+          <div class="container">
+            <div class="flex items-end   h-screen">
+              <div class="section-content__wrapper" id="firstSceneText">
+                <h1 class="text-[40px] sm:text-[40px] md:text-[76px] uppercase leading-none font-extrabold">
+                  Power<br> to earth
+                </h1>
+                <p class="ext-[24px]">La rivoluzione del gas rinnovabile</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class=" mb-[50vh] section-content">
           <div class="container">
             <div class="flex items-end pb-5  h-screen">
@@ -43,13 +46,18 @@
             </div>
           </div>
         </section>
+
+        <script type="module" src="/src/main.js"></script>
+
+        
       </div>
 
 
-    <script type="module" src="/src/main.js"></script>
-
+   
 
 
 
   </body>
+
+  
 </html>
