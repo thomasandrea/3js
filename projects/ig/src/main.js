@@ -61,15 +61,6 @@ const config = {
 };
 
 
-/*const pane = new Pane();
-pane
-  .addBinding(config, "example", {
-    min: 0,
-    max: 10,
-    step: 0.1,
-  })
-  .on("change", (ev) => console.log(ev.value));*/
-
 /**
  * Scene
  */
@@ -80,9 +71,23 @@ const manager = new THREE.LoadingManager();
 const loader = new GLTFLoader(manager);
 
 
+function disposeModel(gltf) {
+  gltf.scene.traverse((el) => {
+    if (el.isMesh) {
+      el.geometry.dispose();
+      if (Array.isArray(el.material)) {
+        el.material.forEach(mat => mat.dispose());
+      } else {
+        el.material.dispose();
+      }
+    }
+  });
 
-// === 2. Scena overlay con quad full-screen ===
-//const overlayScene = new THREE.Scene();
+
+
+
+
+}
 
 const models = {
   globe: null,
@@ -95,15 +100,13 @@ const models = {
 const uniforms = {
   uTime: { value: 0 },
   uProgress: { value: 0 },
-  uMousePos: { value: new THREE.Vector2(0, 0) },
-  uMouseOver: { value: 1 }, // Nuova uniform per lo stato del rollover
-  uMouseStrength: { value: 1 }, // Forza dell'effetto del mouse
-  uMouseRadius: { value: 0.5 },
-  uTargetMousePos: { value: new THREE.Vector2(0, 0) },
-  uSmoothFactor: { value: 0.1 },
+  //uMousePos: { value: new THREE.Vector2(0, 0) },
+  //uMouseOver: { value: 1 }, // Nuova uniform per lo stato del rollover
+  //uMouseStrength: { value: 1 }, // Forza dell'effetto del mouse
+  //uMouseRadius: { value: 0.5 },
+  //uTargetMousePos: { value: new THREE.Vector2(0, 0) },
+  //uSmoothFactor: { value: 0.1 },
 };
-
-
 
 loader.load(hillSrc, (gltf) => {
   //return
@@ -117,6 +120,8 @@ loader.load(hillSrc, (gltf) => {
   model.geometry.rotateY(-Math.PI * 0.5);
   models.hill = createParticlesFromMesh(model, vertexHill, fragmentHill, 20000);
   models.hill.position.set(0, -4.5, -20);
+
+  disposeModel(gltf)
 });
 
 loader.load(branchSrc, (gltf) => {
@@ -131,6 +136,8 @@ loader.load(branchSrc, (gltf) => {
   model.geometry.rotateX(Math.PI * 0.5);
   models.branch = createParticlesFromMesh(model, vertexHill, fragmentHill, 3000);
   models.branch.position.set(2.5, -2.6, -20);
+
+  disposeModel(gltf)
 });
 
 
@@ -147,6 +154,8 @@ loader.load(foliageSrc, (gltf) => {
   model.geometry.rotateX(Math.PI * 0.5);
   models.foliage = createParticlesFromMesh(model, vertexFoliage, fragmentFoliage, 8000);
   models.foliage.position.set(2.5, -2.6, -20);
+
+  disposeModel(gltf)
 });
 
 
@@ -164,6 +173,10 @@ loader.load(globeSrc, (gltf) => {
   model.geometry.rotateY(0 );
   models.globe = createParticlesFromMesh(model, vertexWorld, fragmentWorld, 20000);
   models.globe.position.set(0, 0, -0.6);
+
+  disposeModel(gltf)
+
+  
 });
 
 loader.load(woodsSrc, (gltf) => {
@@ -180,6 +193,8 @@ loader.load(woodsSrc, (gltf) => {
   model.geometry.center();
   models.woods = createParticlesFromMesh(model, vertexTree, fragmentTree, 20000);
   models.woods.position.set(0, 1, -20);
+
+  disposeModel(gltf)
 
   //scene.add(model)
 });
@@ -334,30 +349,21 @@ function updateSecondSceneText() {
 
 
 manager.onStart = (url, itemsLoaded, itemsTotal) => {
-  console.log(`Inizio caricamento: ${url}`);
+  //console.log(`Inizio caricamento: ${url}`);
 };
 
 manager.onLoad = () => {
-  console.log("Tutti i modelli caricati!");
+  //console.log("Tutti i modelli caricati!");
 };
 
 manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-  console.log(`Caricato ${itemsLoaded} di ${itemsTotal}: ${url}`);
+  //console.log(`Caricato ${itemsLoaded} di ${itemsTotal}: ${url}`);
   // puoi aggiornare una barra di progresso qui
 };
 
 manager.onError = (url) => {
   console.error(`Errore nel caricamento di ${url}`);
 };
-
-// Carica più modelli
-const urls = ["globe.gltf", "woods.gltf"];
-
-/*urls.forEach((url) => {
-  loader.load(url, (gltf) => {
-    scene.add(gltf.scene);
-  });
-});*/
 
 
 /**
@@ -376,7 +382,7 @@ const camera = new THREE.PerspectiveCamera(
   fov,
   sizes.width / sizes.height,
   0.1,
-  200
+  100
 );
 //camera.position.set(3, 1, 3);
 //camera.lookAt(new THREE.Vector3(0, 2.5, 0));
@@ -466,7 +472,7 @@ controls.enableDamping = true;*/
  * Lights
  */
 const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 4.5);
+//const directionalLight = new THREE.DirectionalLight(0xffffff, 4.5);
 //directionalLight.position.set(3, 10, 7);
 //scene.add(ambientLight, directionalLight);
 scene.add(ambientLight);
@@ -480,10 +486,6 @@ const clock = new THREE.Clock();
 /*functions */
 
 function createParticlesFromMesh(mesh, vertexSheader, fragmentShader, numParticle=20000) {
-  
-  
-  
-  
   const colorParticle = new THREE.Color();
   //colorParticle.setHex(0x008AC2);
   colorParticle.setRGB(0 / 255, 138 / 255, 194 / 255);
@@ -528,9 +530,6 @@ function createParticlesFromMesh(mesh, vertexSheader, fragmentShader, numParticl
   geometry.setAttribute("color", new THREE.BufferAttribute(colorArray, 3));
   geometry.setAttribute('offset', new THREE.BufferAttribute(offsetArray, 1))
 
-  console.log(offsetArray)
-
-  //console.log(colorArray)
 
   const material = new THREE.ShaderMaterial({
     uniforms: {

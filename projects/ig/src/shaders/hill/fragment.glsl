@@ -9,7 +9,7 @@ void main() {
   strength = smoothstep(0.7, 0.8, 1.0 - strength);
   
   // Calcola l'opacità basata sulla distanza della camera
-  float opacity = smoothstep(2.0, 8.0, vCameraDistance);
+  float opacity = smoothstep(1.0, 10.0, vCameraDistance);
   
   gl_FragColor.rgba = vec4(vColor, 1.);
   gl_FragColor.a *= strength;

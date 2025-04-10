@@ -44,7 +44,8 @@ void main() {
 
   vDistance = smoothstep(4.6,0., dist);
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-  gl_PointSize = 30. * vDistance * (sin(uTime * 3. + offset * 10.) * 0.4 + 0.6 );
+  //gl_PointSize = 30. * vDistance * (sin(uTime * 3. + offset * 10.) * 0.4 + 0.6 );
+  gl_PointSize = 30. * vDistance * (sin(.0 * 3. + .0 * 10.) * 0.4 + 0.6 );
 
 
 
