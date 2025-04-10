@@ -1,7 +1,7 @@
 import "./style.css";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+//import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 // __controls_import__
 // __gui_import__
 
@@ -30,11 +30,6 @@ import hillSrc from "/models/collina/collina.gltf?url";
 
 import branchSrc from "/models/alberi-test-tronco/alberi-test-tronco.gltf?url";
 import foliageSrc from "/models/alberi-test-chioma/alberi-test-chioma.gltf?url";
-
-
-
-
-
 
 
 import cloud1Texture from '/textures/cloud/cloud-1.png?url';
@@ -82,11 +77,6 @@ function disposeModel(gltf) {
       }
     }
   });
-
-
-
-
-
 }
 
 const models = {
@@ -159,7 +149,6 @@ loader.load(foliageSrc, (gltf) => {
 });
 
 
-
 loader.load(globeSrc, (gltf) => {
   //return
   let model;
@@ -205,7 +194,7 @@ const textureLoader = new THREE.TextureLoader();
 
 textureLoader.load(cloud1Texture, (texture) => {
   const imageAspect = texture.image.width / texture.image.height;
-  const height = 0.3; // o quello che vuoi
+  const height = .24; // o quello che vuoi
   const width = height * imageAspect;
 
   const geometry = new THREE.PlaneGeometry(width, height);
