@@ -11,7 +11,6 @@ import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js
 import vertexWorld from "./shaders/world/vertex.glsl";
 import fragmentWorld from "./shaders/world/fragment.glsl";
 
-
 import vertexTree from "./shaders/tree/vertex.glsl";
 import fragmentTree from "./shaders/tree/fragment.glsl";
 
@@ -19,13 +18,32 @@ import fragmentTree from "./shaders/tree/fragment.glsl";
 import vertexHill from "./shaders/hill/vertex.glsl";
 import fragmentHill from "./shaders/hill/fragment.glsl";
 
+import vertexFoliage from "./shaders/foliage/vertex.glsl";
+import fragmentFoliage from "./shaders/foliage/fragment.glsl";
 
+
+
+//modelli
 import globeSrc from "/models/globe/world2.gltf?url";
 import woodsSrc from "/models/alberi-no-collina/alberi-no-collina.gltf?url";
 import hillSrc from "/models/collina/collina.gltf?url";
 
+import branchSrc from "/models/alberi-test-tronco/alberi-test-tronco.gltf?url";
+import foliageSrc from "/models/alberi-test-chioma/alberi-test-chioma.gltf?url";
+
+
+
+
+
+
+
 import cloud1Texture from '/textures/cloud/cloud-1.png?url';
 import cloud2Texture from '/textures/cloud/cloud-2.png?url';
+
+
+import cloud3Texture from '/textures/cloud/cloud-blur-01.png?url';
+import cloud4Texture from '/textures/cloud/cloud-blur-02.png?url';
+
 //import backgroundSceneTexture from '/textures/bg-02.jpg?url';
 import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
 
@@ -41,6 +59,7 @@ gsap.registerPlugin(ScrollTrigger);
 const config = {
   progress: 0,
 };
+
 
 /*const pane = new Pane();
 pane
@@ -68,8 +87,22 @@ const loader = new GLTFLoader(manager);
 const models = {
   globe: null,
   woods: null,
-  hill:null
+  hill:null,
+  branch:null,
+  foliage:null
 };
+
+const uniforms = {
+  uTime: { value: 0 },
+  uProgress: { value: 0 },
+  uMousePos: { value: new THREE.Vector2(0, 0) },
+  uMouseOver: { value: 1 }, // Nuova uniform per lo stato del rollover
+  uMouseStrength: { value: 1 }, // Forza dell'effetto del mouse
+  uMouseRadius: { value: 0.5 },
+  uTargetMousePos: { value: new THREE.Vector2(0, 0) },
+  uSmoothFactor: { value: 0.1 },
+};
+
 
 
 loader.load(hillSrc, (gltf) => {
@@ -80,11 +113,40 @@ loader.load(hillSrc, (gltf) => {
       model = el;
     }
   });
-
   model.geometry.scale(20, 2, 20);
   model.geometry.rotateY(-Math.PI * 0.5);
-  models.hill = createParticlesFromMesh(model, vertexHill, fragmentHill);
+  models.hill = createParticlesFromMesh(model, vertexHill, fragmentHill, 20000);
   models.hill.position.set(0, -4.5, -20);
+});
+
+loader.load(branchSrc, (gltf) => {
+  //return
+  let model;
+  gltf.scene.traverse((el) => {
+    if (el instanceof THREE.Mesh) {
+      model = el;
+    }
+  });
+  //model.geometry.scale(120, 120, 120);
+  model.geometry.rotateX(Math.PI * 0.5);
+  models.branch = createParticlesFromMesh(model, vertexHill, fragmentHill, 3000);
+  models.branch.position.set(2.5, -2.6, -20);
+});
+
+
+loader.load(foliageSrc, (gltf) => {
+  //return
+  let model;
+  gltf.scene.traverse((el) => {
+    if (el instanceof THREE.Mesh) {
+      model = el;
+    }
+  });
+  //model.geometry.scale(20, 2, 20);
+  //model.geometry.rotateY(-Math.PI * 0.5);
+  model.geometry.rotateX(Math.PI * 0.5);
+  models.foliage = createParticlesFromMesh(model, vertexFoliage, fragmentFoliage, 8000);
+  models.foliage.position.set(2.5, -2.6, -20);
 });
 
 
@@ -98,12 +160,14 @@ loader.load(globeSrc, (gltf) => {
     }
   });
 
-  model.geometry.rotateX(-Math.PI * 0.5);
-  models.globe = createParticlesFromMesh(model, vertexWorld, fragmentWorld);
+  model.geometry.rotateX(-Math.PI * 0.45);
+  model.geometry.rotateY(0 );
+  models.globe = createParticlesFromMesh(model, vertexWorld, fragmentWorld, 20000);
   models.globe.position.set(0, 0, -0.6);
 });
 
 loader.load(woodsSrc, (gltf) => {
+  return;
   let model;
   gltf.scene.traverse((el) => {
     if (el instanceof THREE.Mesh) {
@@ -114,7 +178,7 @@ loader.load(woodsSrc, (gltf) => {
   model.geometry.rotateX(-Math.PI * 0.5)
   //model.geometry.rotateX(2 * Math.PI * 0.5);
   model.geometry.center();
-  models.woods = createParticlesFromMesh(model, vertexTree, fragmentTree);
+  models.woods = createParticlesFromMesh(model, vertexTree, fragmentTree, 20000);
   models.woods.position.set(0, 1, -20);
 
   //scene.add(model)
@@ -126,7 +190,7 @@ const textureLoader = new THREE.TextureLoader();
 
 textureLoader.load(cloud1Texture, (texture) => {
   const imageAspect = texture.image.width / texture.image.height;
-  const height = 0.5; // o quello che vuoi
+  const height = 0.3; // o quello che vuoi
   const width = height * imageAspect;
 
   const geometry = new THREE.PlaneGeometry(width, height);
@@ -140,7 +204,7 @@ textureLoader.load(cloud1Texture, (texture) => {
   cloud.position.set(-1, 0, 0);
 
   const startX = -1;
-  const startZ = -1;
+  const startZ = .1;
 
   const radius = 0.1; // raggio del cerchio
   const speed = 0.2; // velocità di movimento
@@ -163,6 +227,7 @@ textureLoader.load(cloud1Texture, (texture) => {
   scene.add(cloud);
 });
 
+
 textureLoader.load(cloud2Texture, (texture) => {
   const imageAspect = texture.image.width / texture.image.height;
   const height = 0.5; // o quello che vuoi
@@ -179,6 +244,37 @@ textureLoader.load(cloud2Texture, (texture) => {
   scene.add(cloud);
 });
 
+textureLoader.load(cloud3Texture, (texture) => {
+  const imageAspect = texture.image.width / texture.image.height;
+  const height = .7; // o quello che vuoi
+  const width = height * imageAspect;
+
+  const geometry = new THREE.PlaneGeometry(width, height);
+  const material = new THREE.MeshBasicMaterial({
+    map: texture,
+    transparent: true,
+    depthWrite: false,
+  });
+  const cloud = new THREE.Mesh(geometry, material);
+  cloud.position.set(-3, 0.8, -1.5);
+  scene.add(cloud);
+});
+
+textureLoader.load(cloud4Texture, (texture) => {
+  const imageAspect = texture.image.width / texture.image.height;
+  const height = .7; // o quello che vuoi
+  const width = height * imageAspect;
+
+  const geometry = new THREE.PlaneGeometry(width, height);
+  const material = new THREE.MeshBasicMaterial({
+    map: texture,
+    transparent: true,
+    depthWrite: false,
+  });
+  const cloud = new THREE.Mesh(geometry, material);
+  cloud.position.set(3, -1.4, -1.5);
+  scene.add(cloud);
+});
 
 
 function updateBackgroundWithFade() {
@@ -290,7 +386,7 @@ const camera = new THREE.PerspectiveCamera(
  */
 const curve = new THREE.CatmullRomCurve3([
   new THREE.Vector3(0, 0, 1.5),
-  new THREE.Vector3(0, 0, -16),
+  new THREE.Vector3(0, 0, -13.8),
   //new THREE.Vector3(-15, 0, -10),
   //new THREE.Vector3(-5, 0, -60)
 ]);
@@ -331,8 +427,6 @@ gsap.to(config, {
     }*/
   },
 });
-
-
 
 /**
  * Show the axes of coordinates system
@@ -385,18 +479,11 @@ const clock = new THREE.Clock();
 
 /*functions */
 
-function createParticlesFromMesh(mesh, vertexSheader, fragmentShader) {
-  const uniforms = {
-    uTime: { value: 0 },
-    uProgress: { value: 0 },
-    uMousePos: { value: new THREE.Vector2(0, 0) },
-    uMouseOver: { value: 1 }, // Nuova uniform per lo stato del rollover
-    uMouseStrength: { value: 1 }, // Forza dell'effetto del mouse
-    uMouseRadius: { value: 0.5 },
-    uTargetMousePos: { value: new THREE.Vector2(0, 0) },
-    uSmoothFactor: { value: 0.1 },
-  };
-
+function createParticlesFromMesh(mesh, vertexSheader, fragmentShader, numParticle=20000) {
+  
+  
+  
+  
   const colorParticle = new THREE.Color();
   //colorParticle.setHex(0x008AC2);
   colorParticle.setRGB(0 / 255, 138 / 255, 194 / 255);
@@ -409,7 +496,7 @@ function createParticlesFromMesh(mesh, vertexSheader, fragmentShader) {
   ];*/
 
   const sampler = new MeshSurfaceSampler(mesh).build();
-  const num = 20000;
+  const num = numParticle;
   const geometry = new THREE.BufferGeometry();
   const positionArray = new Float32Array(num * 3);
   const colorArray = new Float32Array(num * 3);
@@ -439,6 +526,9 @@ function createParticlesFromMesh(mesh, vertexSheader, fragmentShader) {
     new THREE.BufferAttribute(positionArray, 3)
   );
   geometry.setAttribute("color", new THREE.BufferAttribute(colorArray, 3));
+  geometry.setAttribute('offset', new THREE.BufferAttribute(offsetArray, 1))
+
+  console.log(offsetArray)
 
   //console.log(colorArray)
 
@@ -476,7 +566,7 @@ function tic() {
   //const time = clock.getElapsedTime()
 
   const delta = clock.getDelta(); // tempo trascorso dal frame precedente (in secondi)
-
+  const time = clock.getElapsedTime()
   // Rotazione a 45° al secondo (in radianti: π/4)
   const rotationSpeed = Math.PI / 64;
   //console.log(models.globe, delta)
@@ -487,6 +577,9 @@ function tic() {
   //console.log(Math.sin(time))
   // __controls_update__
   //controls.update();
+
+  uniforms.uProgress= config.progress;
+  uniforms.uTime.value = time
   stepCamera(config.progress);
  updateBackgroundWithFade()
  updateFirsSceneText()
