@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="icon" type="image/webp" sizes="16x16" href="/images/favicon-16x16.webp">
+  <title>Italgas</title>
+</head>
+
+<body>
+  <header class="app-header">
+  <h1 class="brand-logo"><img src="/images/italgas.svg" alt="Italgas" width="140" /></h1>
+  </header>
+
+  <div class="debug-container" id="debug"></div>
+
+  <div id="app">
+    <section class="block block--hero">
+      <div class="block__wrapper">
+        <div class="block__inner">
+          <div class="block__content" id="firstSceneText">
+            <h2 class="block__title block__title--hero">
+              Power<br>to earth
+            </h2>
+            <p class="block__description">La rivoluzione del gas rinnovabile</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block__wrapper">
+        <div class="block__inner block__inner--padded">
+          <div class="block__content" id="secondSceneText">
+            <h2 class="block__title block__title--main">
+              Il cambiamento<br /> è nell'aria
+            </h2>
+            <p class="block__description"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="navigation">
+      <ul class="navigation__menu">
+        <li class="navigation__item">
+          <button class="navigation__btn">
+            <span class="navigation__icon"></span>
+            <span class="navigation__wrapper-label">
+              <span class="navigation__label"><span class="navigation__icon-blue"></span>Il cambiamento è nell'aria</span></span>
+          </button>
+        </li>
+        <li class="navigation__item">
+          <button class="navigation__btn">
+            <span class="navigation__icon"></span>
+            <span class="navigation__wrapper-label">
+            <span class="navigation__label"><span class="navigation__icon-blue"></span>Empowerment a 360°</span>
+          </span>
+          </button>
+        </li>
+        <li class="navigation__item">
+          <button class="navigation__btn">
+            <span class="navigation__icon"></span>
+            <span class="navigation__wrapper-label">
+            <span class="navigation__label"><span class="navigation__icon-blue"></span>Power to earth</span>
+          </span>
+          </button>
+        </li>
+        <li class="navigation__item">
+          <button class="navigation__btn">
+            <span class="navigation__icon"></span>
+            <span class="navigation__wrapper-label">
+            <span class="navigation__label"><span class="navigation__icon-blue"></span>Power to people</span>
+          </span>
+          </button>
+        </li>
+        <li class="navigation__item">
+          <button class="navigation__btn">
+            <span class="navigation__icon"></span>
+            <span class="navigation__wrapper-label">
+            <span class="navigation__label"><span class="navigation__icon-blue"></span>Power to energy</span>
+          </span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </div>
+
+  <div class="scene scene--first" id="bgFirstScene"></div>
+  <div class="scene scene--second hidden" id="bgSecondScene"></div>
+  <div class="scene scene--third hidden" id="bgThirdScene"></div>
+  <div class="scene scene--fourth hidden" id="bgFourthScene"></div>
+  <div class="scene scene--fifth hidden" id="bgFifthScene"></div>
+  <div class="scene scene--sixth hidden" id="bgSixthScene"></div>
+
+</body>
+</html>

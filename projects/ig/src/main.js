@@ -21,8 +21,6 @@ import fragmentHill from "./shaders/hill/fragment.glsl";
 import vertexFoliage from "./shaders/foliage/vertex.glsl";
 import fragmentFoliage from "./shaders/foliage/fragment.glsl";
 
-
-
 //modelli
 import globeSrc from "/models/globe/world2.gltf?url";
 import woodsSrc from "/models/alberi-no-collina/alberi-no-collina.gltf?url";
@@ -126,7 +124,6 @@ loader.load(branchSrc, (gltf) => {
   model.geometry.rotateX(Math.PI * 0.5);
   models.branch = createParticlesFromMesh(model, vertexHill, fragmentHill, 3000);
   models.branch.position.set(2.5, -2.6, -20);
-
   disposeModel(gltf)
 });
 
@@ -164,8 +161,6 @@ loader.load(globeSrc, (gltf) => {
   models.globe.position.set(0, 0, -0.6);
 
   disposeModel(gltf)
-
-  
 });
 
 loader.load(woodsSrc, (gltf) => {
@@ -591,7 +586,6 @@ window.addEventListener("resize", handleResize);
 function handleResize() {
   sizes.width = window.innerWidth;
   sizes.height = window.innerHeight;
-
   camera.aspect = sizes.width / sizes.height;
 
   // camera.aspect = sizes.width / sizes.height;

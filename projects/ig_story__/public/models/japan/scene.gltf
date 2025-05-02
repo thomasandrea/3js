@@ -1,0 +1,684 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 3426,
+      "max": [
+        541.4022827148438,
+        530.2107543945313,
+        1141.5330810546875
+      ],
+      "min": [
+        -533.1887817382813,
+        -487.47320556640625,
+        -1.8189894035458565e-12
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 41112,
+      "componentType": 5126,
+      "count": 3426,
+      "max": [
+        0.9994096755981445,
+        0.9997637867927551,
+        0.9997463226318359
+      ],
+      "min": [
+        -0.9990746974945068,
+        -0.9998844861984253,
+        -0.9967780113220215
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 3426,
+      "max": [
+        -0.0014600000577047467,
+        3.4655799865722656
+      ],
+      "min": [
+        -0.9995099902153015,
+        0.0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 14454,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 82224,
+      "componentType": 5126,
+      "count": 2400,
+      "max": [
+        566.0076293945313,
+        621.3648681640625,
+        1198.624267578125
+      ],
+      "min": [
+        -617.1461181640625,
+        -564.5653686523438,
+        296.5488586425781
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 111024,
+      "componentType": 5126,
+      "count": 2400,
+      "max": [
+        0.9990134239196777,
+        0.9995465278625488,
+        0.9994550347328186
+      ],
+      "min": [
+        -0.9982894659042358,
+        -0.999553918838501,
+        -0.9209303259849548
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 27408,
+      "componentType": 5126,
+      "count": 2400,
+      "max": [
+        1.000100016593933,
+        -0.0
+      ],
+      "min": [
+        9.999999747378752e-05,
+        -1.0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 57816,
+      "componentType": 5125,
+      "count": 3600,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 139824,
+      "componentType": 5126,
+      "count": 3544,
+      "max": [
+        292.0243225097656,
+        486.2045593261719,
+        883.6414794921875
+      ],
+      "min": [
+        -456.9256286621094,
+        -454.4604187011719,
+        -1.8189894035458565e-12
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 182352,
+      "componentType": 5126,
+      "count": 3544,
+      "max": [
+        0.9998292326927185,
+        0.9997907876968384,
+        0.9997684359550476
+      ],
+      "min": [
+        -0.9998376965522766,
+        -0.9997146129608154,
+        -0.9988940954208374
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 46608,
+      "componentType": 5126,
+      "count": 3544,
+      "max": [
+        -0.0014600000577047467,
+        3.0056099891662598
+      ],
+      "min": [
+        -0.9995099902153015,
+        0.0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 72216,
+      "componentType": 5125,
+      "count": 16236,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 224880,
+      "componentType": 5126,
+      "count": 2304,
+      "max": [
+        362.5718994140625,
+        558.5199584960938,
+        921.4213256835938
+      ],
+      "min": [
+        -530.3565063476563,
+        -492.6178894042969,
+        349.956787109375
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 252528,
+      "componentType": 5126,
+      "count": 2304,
+      "max": [
+        0.9987568855285645,
+        0.9889532327651978,
+        0.9999290704727173
+      ],
+      "min": [
+        -0.9991607666015625,
+        -0.9985408782958984,
+        -0.990908145904541
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 74960,
+      "componentType": 5126,
+      "count": 2304,
+      "max": [
+        1.000100016593933,
+        -0.0
+      ],
+      "min": [
+        9.999999747378752e-05,
+        -1.0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 137160,
+      "componentType": 5125,
+      "count": 3456,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 280176,
+      "componentType": 5126,
+      "count": 3544,
+      "max": [
+        249.7161865234375,
+        646.96044921875,
+        1008.7825927734375
+      ],
+      "min": [
+        -844.5513916015625,
+        -599.5189208984375,
+        0.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 322704,
+      "componentType": 5126,
+      "count": 3544,
+      "max": [
+        0.9977994561195374,
+        0.9987999796867371,
+        0.9993249177932739
+      ],
+      "min": [
+        -0.9989432096481323,
+        -0.9996492862701416,
+        -0.9997509121894836
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 93392,
+      "componentType": 5126,
+      "count": 3544,
+      "max": [
+        -0.0014600000577047467,
+        3.5230300426483154
+      ],
+      "min": [
+        -0.9995099902153015,
+        0.0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 150984,
+      "componentType": 5125,
+      "count": 16236,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 365232,
+      "componentType": 5126,
+      "count": 2304,
+      "max": [
+        291.779541015625,
+        677.642333984375,
+        1056.157470703125
+      ],
+      "min": [
+        -921.3985595703125,
+        -677.2516479492188,
+        276.21026611328125
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 392880,
+      "componentType": 5126,
+      "count": 2304,
+      "max": [
+        0.9898045063018799,
+        0.9997225999832153,
+        0.9994888305664063
+      ],
+      "min": [
+        -0.9995635747909546,
+        -0.9998520612716675,
+        -0.9983891844749451
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 121744,
+      "componentType": 5126,
+      "count": 2304,
+      "max": [
+        1.000100016593933,
+        -0.0
+      ],
+      "min": [
+        9.999999747378752e-05,
+        -1.0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 215928,
+      "componentType": 5125,
+      "count": 3456,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "JABAMI Production (https://sketchfab.com/JabamiProduction)",
+      "license": "SKETCHFAB Standard (https://sketchfab.com/licenses)",
+      "source": "https://sketchfab.com/3d-models/jabami-anime-sakura-blossom-2b0bb78ab0df45fe8795ca7e9da939ba",
+      "title": "Jabami Anime Sakura blossom"
+    },
+    "generator": "Sketchfab-16.21.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 229752,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 140176,
+      "byteOffset": 229752,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 420528,
+      "byteOffset": 369928,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 790456,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/jabami_tronc_mat_baseColor.png"
+    },
+    {
+      "uri": "textures/Jabami_blossom_mat_baseColor.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "jabami_tronc_mat",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0
+      }
+    },
+    {
+      "alphaMode": "BLEND",
+      "doubleSided": true,
+      "name": "Jabami_blossom_mat",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0.0
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Blossom02_jabami_mesh_jabami_tronc_mat_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Blossom02_jabami_mesh_Jabami_blossom_mat_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Blossom01_jabami_mesh_jabami_tronc_mat_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 9,
+            "POSITION": 8,
+            "TEXCOORD_0": 10
+          },
+          "indices": 11,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Blossom01_jabami_mesh_Jabami_blossom_mat_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 13,
+            "POSITION": 12,
+            "TEXCOORD_0": 14
+          },
+          "indices": 15,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Blossomtree00_jabami_mesh_jabami_tronc_mat_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 17,
+            "POSITION": 16,
+            "TEXCOORD_0": 18
+          },
+          "indices": 19,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Blossomtree00_jabami_mesh_Jabami_blossom_mat_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 21,
+            "POSITION": 20,
+            "TEXCOORD_0": 22
+          },
+          "indices": 23,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.009999999776482582,
+        0.0,
+        0.0,
+        -0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Blossom_pack.fbx"
+    },
+    {
+      "children": [
+        3,
+        6,
+        9
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4,
+        5
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.6292067939183141e-07,
+        -0.9999999999999868,
+        0.0,
+        0.0,
+        0.9999999999999868,
+        -1.6292067939183141e-07,
+        0.0,
+        0.0,
+        0.0,
+        931.0281372070313,
+        1.0
+      ],
+      "name": "Blossom02_jabami_mesh"
+    },
+    {
+      "mesh": 0,
+      "name": "Blossom02_jabami_mesh_jabami_tronc_mat_0"
+    },
+    {
+      "mesh": 1,
+      "name": "Blossom02_jabami_mesh_Jabami_blossom_mat_0"
+    },
+    {
+      "children": [
+        7,
+        8
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.6292067939183141e-07,
+        -0.9999999999999868,
+        0.0,
+        0.0,
+        0.9999999999999868,
+        -1.6292067939183141e-07,
+        0.0,
+        0.0,
+        0.0,
+        -940.7208251953125,
+        1.0
+      ],
+      "name": "Blossom01_jabami_mesh"
+    },
+    {
+      "mesh": 2,
+      "name": "Blossom01_jabami_mesh_jabami_tronc_mat_0"
+    },
+    {
+      "mesh": 3,
+      "name": "Blossom01_jabami_mesh_Jabami_blossom_mat_0"
+    },
+    {
+      "children": [
+        10,
+        11
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.6292067939183141e-07,
+        -0.9999999999999868,
+        0.0,
+        0.0,
+        0.9999999999999868,
+        -1.6292067939183141e-07,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Blossomtree00_jabami_mesh"
+    },
+    {
+      "mesh": 4,
+      "name": "Blossomtree00_jabami_mesh_jabami_tronc_mat_0"
+    },
+    {
+      "mesh": 5,
+      "name": "Blossomtree00_jabami_mesh_Jabami_blossom_mat_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    }
+  ]
+}
