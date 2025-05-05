@@ -48,7 +48,7 @@ const PARTICLE_DEFINITIONS = {
     modelPath: globeSrc,
     vertexShader: vertexWorld,
     fragmentShader: fragmentWorld,
-    particleCount: 20000,
+    particleCount: 30000,
     transform: (geometry) => {
       geometry.rotateX(-Math.PI * 0.45);
       geometry.rotateY(0);
@@ -75,7 +75,7 @@ const PARTICLE_DEFINITIONS = {
     modelPath: hillSrc,
     vertexShader: vertexHill,
     fragmentShader: fragmentHill,
-    particleCount: 20000,
+    particleCount: 30000,
     transform: (geometry) => {
       geometry.scale(20, 2, 20);
       geometry.rotateY(-Math.PI * 0.5);
@@ -158,7 +158,7 @@ const PARTICLE_DEFINITIONS = {
     modelPath: molecules1Src,
     vertexShader: vertexMolecules,
     fragmentShader: fragmentMolecules,
-    particleCount: 3000,
+    particleCount: 6000,
     transform: (geometry) => {
       geometry.rotateX(-Math.PI * 0.45);
       geometry.scale(.5, .5, .5);
@@ -174,7 +174,7 @@ const PARTICLE_DEFINITIONS = {
     modelPath: molecules1Src,
     vertexShader: vertexMolecules,
     fragmentShader: fragmentMolecules,
-    particleCount: 3000,
+    particleCount: 5000,
     transform: (geometry) => {
       //geometry.rotateX(-Math.PI * 0.45);
       geometry.scale(.5, .5, .5);

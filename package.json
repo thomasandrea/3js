@@ -2,12 +2,13 @@
   "name": "3js",
   "private": true,
   "scripts": {
-    "build": "npm run build:bitmama && npm run build:morphing  && npm run build:ig && npm run build:copy",
+    "build": "npm run build:bitmama && npm run build:morphing  && npm run build:ig && npm run build:ig_story && npm run build:copy",
     "build:bitmama": "cd projects/bitmama  && npm instal && npm run build",
     "build:morphing": "cd projects/morphing && npm instal && npm run build",
     "build:ig": "cd projects/ig && npm instal &&  npm run build",
+    "build:ig_story": "cd projects/ig_story && npm instal &&  npm run build",
     "copy:index": "cp index.html dist/index.html",
-    "build:copy": "mkdir -p dist/projects/bitmama dist/projects/morphing dist/projects/ig && cp -r projects/bitmama/dist/* dist/projects/bitmama/ && cp -r projects/morphing/dist/* dist/projects/morphing/ && cp -r projects/ig/dist/* dist/projects/ig/ && cp index.html dist/"
+    "build:copy": "mkdir -p dist/projects/bitmama dist/projects/morphing dist/projects/ig dist/projects/ig_story && cp -r projects/bitmama/dist/* dist/projects/bitmama/ && cp -r projects/morphing/dist/* dist/projects/morphing/ && cp -r projects/ig/dist/* dist/projects/ig_story/ && cp -r projects/ig/dist/* dist/projects/ig_story/ && cp index.html dist/"
   },
   "dependencies": {
     "create-3": "^0.4.7"
