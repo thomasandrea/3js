@@ -38,7 +38,7 @@ export default class PlaneModelManager {
     //this.textureMap = {};
     this.animations = [];
     this.ktx2Loader = new KTX2Loader(this.manager)
-      .setTranscoderPath("basis/") // Assicurati che questa sia la path corretta verso i file .wasm/.js di Basis
+      .setTranscoderPath("./basis/") // Assicurati che questa sia la path corretta verso i file .wasm/.js di Basis
       .detectSupport(renderer); // Passa il renderer usato nel tuo progetto
 
     this.textureMap = {
