@@ -119,7 +119,6 @@ export default class HtmlElementManager {
     
      // Scala con effetto più pronunciato al centro
      const scale = 1 + smoothOpacity * (options.maxScale - 1);
- 
      gsap.to(element, {
        opacity: smoothOpacity,
        //scale: scale,

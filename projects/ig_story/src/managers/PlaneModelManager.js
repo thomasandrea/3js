@@ -1,18 +1,35 @@
 import * as THREE from "three";
 import gsap from "gsap";
+import { KTX2Loader } from "three/examples/jsm/loaders/KTX2Loader.js";
 
 // Importa le texture
-import cloud1Texture from "/textures/cloud/cloud-1.png?url";
+/*import cloud1Texture from "/textures/cloud/cloud-1.png?url";
 import cloud2Texture from "/textures/cloud/cloud-2.png?url";
 import cloud3Texture from "/textures/cloud/cloud-blur-01.png?url";
 import cloud4Texture from "/textures/cloud/cloud-blur-02.png?url";
 
 import mountainTexture from "/textures/landscape/mountain.png?url";
-import panelTexture from "/textures/solar/panels.png?url";
+import panelTexture from "/textures/solar/panels.png?url";*/
+
+
+
+import cloud1Texture from "/textures-ktx2/cloud/cloud-1.ktx2?url";
+import cloud2Texture from "/textures-ktx2/cloud/cloud-2.ktx2?url";
+import cloud3Texture from "/textures-ktx2/cloud/cloud-blur-01.ktx2?url";
+import cloud4Texture from "/textures-ktx2/cloud/cloud-blur-02.ktx2?url";
+
+import mountainTexture from "/textures-ktx2/landscape/mountain.ktx2?url";
+import panelTexture from "/textures-ktx2/solar/panels.ktx2?url";
+
+
+
+
+
+
 //import grassTexture from "/textures/landscape/grass.png?url";
 
 export default class PlaneModelManager {
-  constructor(scene) {
+  constructor(scene, renderer) {
     this.scene = scene;
     this.manager = new THREE.LoadingManager();
     this.textureLoader = new THREE.TextureLoader(this.manager);
@@ -20,6 +37,9 @@ export default class PlaneModelManager {
     this.planeConfigs = [];
     //this.textureMap = {};
     this.animations = [];
+    this.ktx2Loader = new KTX2Loader(this.manager)
+      .setTranscoderPath("basis/") // Assicurati che questa sia la path corretta verso i file .wasm/.js di Basis
+      .detectSupport(renderer); // Passa il renderer usato nel tuo progetto
 
     this.textureMap = {
       cloud1: cloud1Texture,
@@ -133,6 +153,11 @@ export default class PlaneModelManager {
     // Determina l'URL della texture
     let textureUrl = null;
 
+    //const loader = textureUrl.endsWith('.ktx2') ? this.ktx2Loader : this.textureLoader;
+    //loader.load(textureUrl, (texture) => {
+
+
+
     if (config.textureKey && this.textureMap[config.textureKey]) {
       textureUrl = this.textureMap[config.textureKey];
     } else if (config.textureUrl) {
@@ -145,9 +170,15 @@ export default class PlaneModelManager {
       return;
     }
 
-    this.textureLoader.load(textureUrl, (texture) => {
+    const loader = textureUrl.endsWith('.ktx2') ? this.ktx2Loader : this.textureLoader;
+    loader.load(textureUrl, (texture) => {
+      console.log(texture.image.width, texture.image.height , texture.image.name);
+    //this.textureLoader.load(textureUrl, (texture) => {
       // Calcola le dimensioni in base all'aspect ratio dell'immagine
+
       let width, height;
+      
+     
 
       height = config.height;
 

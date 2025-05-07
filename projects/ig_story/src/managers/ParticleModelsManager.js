@@ -9,6 +9,10 @@ import vertexTree from "../shaders/tree/vertex.glsl";
 import fragmentTree from "../shaders/tree/fragment.glsl";
 import vertexHill from "../shaders/hill/vertex.glsl";
 import fragmentHill from "../shaders/hill/fragment.glsl";
+
+import vertexBranch from "../shaders/branch/vertex.glsl";
+import fragmentBranch from "../shaders/branch/fragment.glsl";
+
 import vertexFoliage from "../shaders/foliage/vertex.glsl";
 import fragmentFoliage from "../shaders/foliage/fragment.glsl";
 import vertexTube from "../shaders/tube/vertex.glsl";
@@ -88,8 +92,8 @@ const PARTICLE_DEFINITIONS = {
   },
   branch: {
     modelPath: branchSrc,
-    vertexShader: vertexHill,
-    fragmentShader: fragmentHill,
+    vertexShader: vertexBranch,
+    fragmentShader: fragmentBranch,
     particleCount: 3000,
     transform: (geometry) => {
       geometry.rotateX(Math.PI * 0.5);
@@ -160,6 +164,7 @@ const PARTICLE_DEFINITIONS = {
     fragmentShader: fragmentMolecules,
     particleCount: 6000,
     transform: (geometry) => {
+      geometry.center();
       geometry.rotateX(-Math.PI * 0.45);
       geometry.scale(.5, .5, .5);
       //geometry.rotateY(0);
@@ -177,6 +182,7 @@ const PARTICLE_DEFINITIONS = {
     particleCount: 5000,
     transform: (geometry) => {
       //geometry.rotateX(-Math.PI * 0.45);
+      geometry.center();
       geometry.scale(.5, .5, .5);
       //geometry.rotateY(0);
     },
@@ -195,7 +201,9 @@ export default class ParticleModelsManager {
     this.rotationSpeed = Math.PI / 64;
     this.models = {};
     this.activeModels = new Set(); // Tiene traccia dei modelli attualmente aggiunti alla scena
-    this.uniforms = {}; // Se hai uniform globali, puoi aggiungerli qui
+    this.uniforms = {
+        uTime: { value: 0 },
+    }; // Se hai uniform globali, puoi aggiungerli qui
   }
 
   setupLoader() {
@@ -432,7 +440,7 @@ export default class ParticleModelsManager {
    */
   createRay(onReady, addToScene = false) {
     const beamCount = 6; // 3 colonne x 2 righe
-    const particlesPerBeam = 260; // Particelle per fascio
+    const particlesPerBeam = 860; // Particelle per fascio
     const particleCount = beamCount * particlesPerBeam;
 
     const startPositions = new Float32Array(particleCount * 3);
@@ -444,7 +452,7 @@ export default class ParticleModelsManager {
     const gridWidth = 3;
     const gridHeight = 2;
     const spacingX = .68; // Spazio orizzontale tra i fasci
-    const spacingY = 0.68; // Spazio verticale tra i fasci
+    const spacingY = .68; // Spazio verticale tra i fasci
 
     const positions = new Float32Array(particleCount * 3);
     
@@ -575,11 +583,22 @@ export default class ParticleModelsManager {
     if (this.models.globe && this.activeModels.has('globe')) {
       this.models.globe.rotation.y -= this.rotationSpeed * delta;
     }
-    
-    if (this.models.ray) {
-      
+
+    if (this.models.molecules1 ) {
+      this.models.molecules1.rotation.x -= this.rotationSpeed * delta*28;
+    }
+    if (this.models.molecules2 ) {
+      this.models.molecules2.rotation.y -= this.rotationSpeed * delta*8;
+    }
+
+
+
+    if (this.models.ray) {  
       this.models.ray.visible = camera.position.z < -120 && camera.position.z > -150;
-      this.models.ray.material.uniforms.uTime.value = performance.now() / 100000;
+      this.models.ray.material.uniforms.uTime.value = performance.now() / 500000;
+    }
+    if (this.models.foliage) {  
+      this.models.foliage.material.uniforms.uTime.value = performance.now() / 1000;
     }
     
     // Puoi aggiungere altre animazioni o aggiornamenti specifici qui

@@ -76,7 +76,7 @@ htmlManager
   .addTextElement('#secondSceneText',-1, -20);
 
 
-const planeManager = new PlaneModelManager(scene);
+const planeManager = new PlaneModelManager(scene, renderer);
   planeManager.importCloudConfigs();
   planeManager.loadAllPlanes((planes) => {
     console.log(`Caricati ${planes.length} piani`);

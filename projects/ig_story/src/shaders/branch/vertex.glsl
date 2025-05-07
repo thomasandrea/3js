@@ -6,14 +6,13 @@ varying float vDistance;
 varying float vCameraDistance; // Nuova variabile
 
 void main() {
-  //vColor = color;
+  vColor = color;
 
   //vColor = vec3();
 
 
 //a2ca39
   //vColor = vec3(0.635, 0.792, 0.224);
-  vColor = vec3(0.518, 0.659, 0.149);
 
 
   
