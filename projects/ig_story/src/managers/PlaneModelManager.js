@@ -32,7 +32,7 @@ export default class PlaneModelManager {
     this.planeConfigs = [];
     //this.textureMap = {};
     this.animations = [];
-    const baseUrl = process.env.NODE_ENV === 'production' ? '/ig_story/' : '.';
+    const baseUrl = process.env.NODE_ENV === 'production' ? '/projects/ig_story/' : '.';
     
     this.ktx2Loader = new KTX2Loader(this.manager)
       .setTranscoderPath(`${baseUrl}/basis/`) // Assicurati che questa sia la path corretta verso i file .wasm/.js di Basis
