@@ -21,11 +21,6 @@ import cloud4Texture from "/textures-ktx2/cloud/cloud-blur-02.ktx2?url";
 import mountainTexture from "/textures-ktx2/landscape/mountain.ktx2?url";
 import panelTexture from "/textures-ktx2/solar/panels.ktx2?url";
 
-
-
-
-
-
 //import grassTexture from "/textures/landscape/grass.png?url";
 
 export default class PlaneModelManager {
@@ -37,8 +32,10 @@ export default class PlaneModelManager {
     this.planeConfigs = [];
     //this.textureMap = {};
     this.animations = [];
+    const baseUrl = process.env.NODE_ENV === 'production' ? '/ig_story/' : '.';
+    
     this.ktx2Loader = new KTX2Loader(this.manager)
-      .setTranscoderPath("./basis/") // Assicurati che questa sia la path corretta verso i file .wasm/.js di Basis
+      .setTranscoderPath(`${baseUrl}/basis/`) // Assicurati che questa sia la path corretta verso i file .wasm/.js di Basis
       .detectSupport(renderer); // Passa il renderer usato nel tuo progetto
 
     this.textureMap = {
