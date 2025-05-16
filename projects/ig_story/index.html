@@ -11,7 +11,7 @@
 
 <body>
   <header class="app-header">
-  <h1 class="brand-logo"><img src="/images/italgas.svg" alt="Italgas" width="140" /></h1>
+    <h1 class="brand-logo"><img src="/images/italgas.svg" alt="Italgas" width="140" /></h1>
   </header>
 
   <div class="debug-container" id="debug"></div>
@@ -22,9 +22,9 @@
         <div class="block__inner">
           <div class="block__content" id="firstSceneText">
             <h2 class="block__title block__title--hero">
-              Power<br>to earth
+              {{hero.title}}
             </h2>
-            <p class="block__description">La rivoluzione del gas rinnovabile</p>
+            <p class="block__description">{{hero.description}}</p>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
         <div class="block__inner block__inner--padded">
           <div class="block__content" id="secondSceneText">
             <h2 class="block__title block__title--main">
-              Il cambiamento<br /> è nell'aria
+              {{hero2.title}}
             </h2>
             <p class="block__description"></p>
           </div>
@@ -49,39 +49,52 @@
           <button class="navigation__btn">
             <span class="navigation__icon"></span>
             <span class="navigation__wrapper-label">
-              <span class="navigation__label"><span class="navigation__icon-blue"></span>Il cambiamento è nell'aria</span></span>
+              <span class="navigation__label">
+                {{navigation.home}}</span></span>
           </button>
         </li>
         <li class="navigation__item">
           <button class="navigation__btn">
             <span class="navigation__icon"></span>
             <span class="navigation__wrapper-label">
-            <span class="navigation__label"><span class="navigation__icon-blue"></span>Empowerment a 360°</span>
-          </span>
+              <span class="navigation__label">
+                {{navigation.change}}</span></span>
           </button>
         </li>
         <li class="navigation__item">
           <button class="navigation__btn">
             <span class="navigation__icon"></span>
             <span class="navigation__wrapper-label">
-            <span class="navigation__label"><span class="navigation__icon-blue"></span>Power to earth</span>
-          </span>
+              <span class="navigation__label">
+                {{navigation.empowerment}}</span>
+            </span>
           </button>
         </li>
         <li class="navigation__item">
           <button class="navigation__btn">
             <span class="navigation__icon"></span>
             <span class="navigation__wrapper-label">
-            <span class="navigation__label"><span class="navigation__icon-blue"></span>Power to people</span>
-          </span>
+              <span class="navigation__label">
+                {{navigation.power_earth}}</span>
+            </span>
           </button>
         </li>
         <li class="navigation__item">
           <button class="navigation__btn">
             <span class="navigation__icon"></span>
             <span class="navigation__wrapper-label">
-            <span class="navigation__label"><span class="navigation__icon-blue"></span>Power to energy</span>
-          </span>
+              <span class="navigation__label">
+                {{navigation.power_people}}</span>
+            </span>
+          </button>
+        </li>
+        <li class="navigation__item">
+          <button class="navigation__btn">
+            <span class="navigation__icon"></span>
+            <span class="navigation__wrapper-label">
+              <span class="navigation__label">
+                {{navigation.power_energy}}</span>
+            </span>
           </button>
         </li>
       </ul>
@@ -91,10 +104,15 @@
 
   <div class="scene scene--first" id="bgFirstScene"></div>
   <div class="scene scene--second hidden" id="bgSecondScene"></div>
-  <div class="scene scene--third hidden" id="bgThirdScene"></div>
-  <div class="scene scene--fourth hidden" id="bgFourthScene"></div>
+  <!--<div class="scene scene--third hidden" id="bgThirdScene"></div>-->
+
+  <div class="scene scene--third hidden" id="bgThirdScene">
+    <img src="./backgrounds/bg-village-panels.jpg" />
+  </div>
+
   <div class="scene scene--fifth hidden" id="bgFifthScene"></div>
   <div class="scene scene--sixth hidden" id="bgSixthScene"></div>
 
 </body>
+
 </html>

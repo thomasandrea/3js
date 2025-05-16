@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "build": "vite build",
+    "dev": "vite",
+    "build:it": "LANG=it vite build",
+    "build:en": "LANG=en vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -23,6 +24,7 @@
     "lil-gui": "^0.19.2",
     "sharp": "^0.34.1",
     "simplex-noise": "^4.0.1",
+    "stats.js": "^0.17.0",
     "three": "^0.163.0",
     "tweakpane": "^4.0.5"
   }

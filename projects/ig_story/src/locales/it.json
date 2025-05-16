@@ -1,0 +1,17 @@
+{
+  "hero": {
+    "title": "Potenza<br />alla terra",
+    "description": "La rivoluzione del gas rinnovabile"
+  },
+  "hero2": {
+    "title": "Il cambiamento<br /> è nell'aria"
+  },
+  "navigation": {
+    "home": "Potenza alla terra",
+    "change": "Il cambiamento è nell'aria",
+    "empowerment": "Autonomia a 360°",
+    "power_earth": "Potenza alla terra",
+    "power_people": "Potenza alle persone",
+    "power_energy": "Potenza all'energia"
+  }
+}

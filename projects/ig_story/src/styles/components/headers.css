@@ -1,0 +1,31 @@
+/* Stili per header e titoli */
+@layer components {
+  /* Titles */
+  .block__title {
+    @apply text-[40px] sm:text-[40px] md:text-[76px] leading-none;
+  }
+
+  .block__title--hero {
+    @apply uppercase font-extrabold;
+  }
+
+  .block__title--main {
+    @apply text-[40px] sm:text-[40px] md:text-[52px] leading-none z-10 relative;
+  }
+
+  .block__description {
+    @apply text-[24px];
+  }
+
+  /* Logo */
+  .brand-logo {
+    @apply w-[140px] ml-2 mt-3 mb-3;
+    margin-left: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .brand-logo {
+      margin-left: 5rem;
+    }
+  }
+}

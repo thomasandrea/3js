@@ -1,0 +1,17 @@
+{
+  "hero": {
+    "title": "Power<br />to earth",
+    "description": "The renewable gas revolution"
+  },
+  "hero2": {
+    "title": "Change is <br />in the air"
+  },
+  "navigation": {
+    "home": "Power to earth",
+    "change": "Change is in the air",
+    "empowerment": "360° Empowerment",
+    "power_earth": "Power to earth",
+    "power_people": "Power to people",
+    "power_energy": "Power to energy"
+  }
+}

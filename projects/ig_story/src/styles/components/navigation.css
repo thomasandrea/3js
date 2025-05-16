@@ -1,0 +1,133 @@
+/* Stili per la navigazione */
+@layer components {
+  /* Navigation (ex Controls) */
+  .navigation {
+    @apply fixed bottom-[100px] w-full z-10 opacity-0;
+  }
+
+  .navigation__menu {
+    @apply flex justify-center w-[60%] justify-between mx-auto bg-[#f7f9fb] p-2 rounded-full relative;
+  }
+
+  .navigation__menu:before {
+    content: "";
+    border-bottom: 1px solid #003478;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    right: 10px;
+  }
+
+  .navigation__item {
+    flex: 1 0 0;
+    transition: flex 0.3s ease;
+    display: flex;
+    justify-content: left;
+    position: relative; /* necessario per label assoluta */
+  }
+  
+  .navigation__item:last-child {
+    flex: 0 0 36px;
+    .navigation__btn {
+      width: 100%;
+      background-color: rgb(247 249 251 / var(--tw-bg-opacity, 1));
+    }
+  }
+
+  .navigation__btn {
+    @apply flex items-center gap-2 bg-transparent border-none;
+    overflow: hidden;
+    position: relative;
+    //transition: width 0s ease;
+    width: 44px;
+  }
+
+  .navigation__icon {
+    transition: all 0.3s ease;
+    @apply w-9 h-9 rounded-full border border-[#003478] flex items-center justify-center;
+    z-index: 3;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+    background-color: rgb(247 249 251 / var(--tw-bg-opacity, 1));
+  }
+  
+  .navigation__icon:before {
+    transition: all 0.3s ease;
+    content: "";
+    @apply inline-block bg-[#003478] w-2 h-2 rounded-full;
+  }
+
+  .navigation__icon:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 36px;
+    height: 36px;
+    @apply rounded-full border border-[#F7F9FB];
+    border-width: 8px;
+    box-sizing: content-box;
+  }
+
+  /*
+  .navigation__icon-blue {
+    @apply w-9 h-9 rounded-full border border-[#008AC2] flex items-center justify-center;
+    z-index: 3;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+    margin-right: 18px;
+  }
+  
+  .navigation__icon-blue:before {
+    content: "";
+    @apply inline-block bg-[#008AC2] w-3 h-3 rounded-full;
+  }*/
+  
+  /* LABEL galleggiante */
+  .navigation__wrapper-label {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    height: 44px;
+  }
+  
+  .navigation__label {
+    display: flex;
+    white-space: nowrap;
+    transition: opacity 0.3s ease, transform 0.4s ease;
+    text-align: left;
+    position: absolute;
+    height: 44px;
+    background-color: #fff;
+    align-items: center;
+    border-radius: 100px;
+    padding: 0 20px 0 20px;
+    left: 0;
+    width: auto;
+    overflow: hidden;
+    transform: translateX(-100%);
+  }
+
+  /* Mostra la label */
+  .navigation__item:has(.navigation__btn:hover),
+  .navigation__item:has(.navigation__btn.active) {
+    flex-grow: 5;
+    .navigation__btn {
+      width: 100%;
+      .navigation__icon {
+         @apply  border-[#008AC2];
+      }
+      .navigation__icon:before {
+        @apply inline-block bg-[#008AC2] w-3 h-3 rounded-full;
+      }
+      .navigation__wrapper-label {
+        width: 100%;
+        .navigation__label {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+}

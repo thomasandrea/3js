@@ -57,7 +57,8 @@ void main() {
     vec3 upVector = vec3(0.0, 1.0, 0.0);
     
     // Aggiungi l'arco alla posizione interpolata
-    newPosition += upVector * arcHeight * arcFactor;
+    //newPosition += upVector * arcHeight * arcFactor;
+    newPosition += upVector ;
 
     // Riduci la dimensione delle particelle verso la fine
     float sizeScale = 1.0 - progress * 0.7; // Riduce fino al 30% della dimensione originale

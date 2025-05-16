@@ -41,9 +41,6 @@ import person2Src from "/models/people/person2.gltf?url";
 import person3Src from "/models/people/person3.gltf?url";
 
 
-
-
-
 import { config } from "../config";
 
 // Modello di definizione per ogni tipo di particelle
@@ -438,6 +435,50 @@ export default class ParticleModelsManager {
    * @param {Function} onReady - Callback quando i raggi sono pronti
    * @param {boolean} addToScene - Se aggiungere automaticamente alla scena
    */
+
+
+
+
+
+  creteParticleAround(onReady) {
+    const count = 10000; // Numero di particelle
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(count * 3);
+
+    for (let i = 0; i < count; i++) {
+      positions[i * 3 + 0] = (Math.random() - 0.5) * 20; // x
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 20; // y
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 500; // z
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const material = new THREE.ShaderMaterial({
+      vertexShader: `
+        void main() {
+          gl_PointSize = 10.0;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        void main() {
+          float dist = length(gl_PointCoord - vec2(0.5));
+          if (dist > 0.5) discard;
+          gl_FragColor = vec4(1.0);
+        }
+      `,
+      transparent: true
+    });
+    
+    const points = new THREE.Points(geometry, material);
+
+    if (onReady) onReady(points);
+
+
+  }
+
+
+
+
   createRay(onReady, addToScene = false) {
     const beamCount = 6; // 3 colonne x 2 righe
     const particlesPerBeam = 860; // Particelle per fascio
@@ -471,13 +512,14 @@ export default class ParticleModelsManager {
         const offsetBeamX = beamCenterX + (Math.random() - 0.5) * 0.23;
         const offsetBeamY = beamCenterY + (Math.random() - 0.5) * 0.23;
 
-        startPositions[i3] = 35 + offsetBeamX;
-        startPositions[i3 + 1] = 8 + offsetBeamY;
-        startPositions[i3 + 2] = -135.5;
 
-        targetPositions[i3] = 45 + offsetBeamX;
-        targetPositions[i3 + 1] = -2 + offsetBeamY;
-        targetPositions[i3 + 2] = -135.4;
+        startPositions[i3] =  config.planes.panels.position.x -10 + offsetBeamX;
+        startPositions[i3 + 1] =  config.planes.panels.position.y +12  + offsetBeamY;
+        startPositions[i3 + 2] =  config.planes.panels.position.z;
+
+        targetPositions[i3] = config.planes.panels.position.x + offsetBeamX;
+        targetPositions[i3 + 1] =config.planes.panels.position.y - 1+ offsetBeamY;
+        targetPositions[i3 + 2] = config.planes.panels.position.z+2;
 
         speeds[particleIndex] = Math.random() * 10 + 10;
         startTime[particleIndex] = Math.random();
@@ -590,8 +632,6 @@ export default class ParticleModelsManager {
     if (this.models.molecules2 ) {
       this.models.molecules2.rotation.y -= this.rotationSpeed * delta*8;
     }
-
-
 
     if (this.models.ray) {  
       this.models.ray.visible = camera.position.z < -120 && camera.position.z > -150;

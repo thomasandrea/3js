@@ -1,12 +1,15 @@
 import gsap from "gsap";
+import { config } from "../config";
 
 export default class Navigation {
-    constructor(config, cameraTimeline) {
-      this.config = config;
+    constructor(camera, cameraTimeline) {
+      this.camera = camera
       this.cameraTrigger = cameraTimeline.scrollTrigger;
       this.buttons = document.querySelectorAll('.navigation__btn');
       this.activeIndex = -1;
-  
+      this.isNavigationVisible = false;
+      this.showNavigationAtZ= -5;
+      this.navigationElement = document.querySelector('.navigation');
       this.bindEvents();
     }
   
@@ -17,7 +20,7 @@ export default class Navigation {
     }
   
     scrollToStep(index) {
-        const targetProgress = this.config.camera.progress.step[index];
+        const targetProgress = config.camera.progress.step[index];
         const targetScrollY = this.cameraTrigger.start +
           targetProgress * (this.cameraTrigger.end - this.cameraTrigger.start);
       
@@ -34,14 +37,34 @@ export default class Navigation {
         });
     }
   
-    update() {
+    update(camera) {
         const scroll = window.scrollY;
         const start = this.cameraTrigger.start;
         const end = this.cameraTrigger.end;
         const currentProgress = (scroll - start) / (end - start);
+
+
+        //check visibility bar
+        if (!this.isNavigationVisible && this.camera.position.z < this.showNavigationAtZ) {
+          this.isNavigationVisible = true;
+          gsap.to(this.navigationElement, {
+            opacity: 1,
+            duration: 0.4,
+            ease: "power2.out"
+          });
+        } else if (this.isNavigationVisible && this.camera.position.z >= this.showNavigationAtZ) {
+          this.isNavigationVisible = false;
+          gsap.to(this.navigationElement, {
+            opacity: 0,
+            duration: 0.4,
+            ease: "power2.in"
+          });
+        }
+
+
       
         // Se il progress è inferiore al primo step, nessun attivo
-        if (currentProgress < this.config.camera.progress.step[0]) {
+        if (currentProgress < config.camera.progress.step[0]) {
           this.setActiveButton(-1); // Nessun attivo
           return;
         }
@@ -49,7 +72,7 @@ export default class Navigation {
         let closestIndex = 0;
         let minDelta = Infinity;
       
-        this.config.camera.progress.step.forEach((p, i) => {
+        config.camera.progress.step.forEach((p, i) => {
           const delta = Math.abs(p - currentProgress);
           if (delta < minDelta) {
             minDelta = delta;

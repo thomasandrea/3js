@@ -1,0 +1,9 @@
+/* Stili di base */
+@layer base {
+  html,
+  body {
+    @apply font-sans text-[#003478] h-full p-0 m-0;
+    font-family: "Work Sans", sans-serif;
+    overscroll-behavior: none;
+  }
+}

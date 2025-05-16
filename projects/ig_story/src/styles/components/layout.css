@@ -1,0 +1,84 @@
+/* Stili per il layout generale */
+@layer components {
+  .app-header {
+    @apply fixed z-[3] w-[100%];
+    background-color: #f7f9fbe5;
+  }
+  
+  .scrollable-content {
+    @apply h-full;
+  }
+
+  /* Scene backgrounds */
+  .scene {
+    @apply h-screen fixed inset-0 bg-cover bg-no-repeat bg-center;
+  }
+
+  .scene--first {
+    @apply bg-gradient-to-b from-[#f7f9fb] from-[20.62%] to-[rgba(174,207,225,0.5)] to-100%;
+    background-size: 100% 100%;
+  }
+
+  .scene--second {
+    @apply scale-100 opacity-0;
+    background-image: url("/backgrounds/bg-02.jpg");
+  }
+
+  .scene--third {
+    width: 100vw;
+    height: 100vh;
+    //overflow: hidden;
+    /*position: relative;*/
+    border: 2px solid #f0f;
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: 100%;
+      width: auto;
+      min-width: 200vw;
+      object-fit: cover;
+    }
+  }
+
+  .scene--fourth {
+    @apply scale-100 opacity-0;
+    background-image: url("/backgrounds/bg-panels.png");
+  }
+
+  .scene--fifth {
+    @apply scale-100 opacity-0;
+    background-image: url("/backgrounds/bg-city.jpg");
+  }
+
+  .scene--sixth {
+    @apply scale-100 opacity-0;
+    background-image: url("/backgrounds/bg-molecules.jpg");
+  }
+
+  /* Debug Panel */
+  .debug-container {
+    @apply fixed right-5 top-5;
+  }
+
+  /* Canvas */
+  canvas {
+    @apply fixed inset-0 z-[1];
+  }
+
+  /* App */
+  #app {
+    @apply relative h-[9000px] z-20;
+  }
+
+  /* Scene Text Positions */
+  #firstSceneText {
+    @apply opacity-0 fixed bottom-[8%];
+  }
+
+  #secondSceneText {
+    @apply fixed top-[45%] opacity-0;
+  }
+}

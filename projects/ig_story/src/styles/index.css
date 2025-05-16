@@ -1,0 +1,12 @@
+/* Importa tutti i file CSS */
+@import './fonts.css';
+@import './base.css';
+@import './components/layout.css';
+@import './components/headers.css';
+@import './components/navigation.css';
+@import './components/blocks.css';
+@import './utilities.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

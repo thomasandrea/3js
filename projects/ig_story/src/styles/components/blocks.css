@@ -1,0 +1,29 @@
+/* Stili per i blocchi/sezioni */
+@layer components {
+  /* Block (ex Section) */
+  .block {
+    @apply mb-[50vh] text-[#003478] z-[2];
+  }
+
+  .block--hero {
+    @apply fixed w-full;
+  }
+
+  .block__content {
+    @apply ml-8;
+  }
+
+  @media (min-width: 768px) {
+    .block__content {
+      margin-left: 5rem;
+    }
+  }
+
+  .block__inner {
+    @apply flex items-end h-screen;
+  }
+
+  .block__inner--padded {
+    @apply pb-5;
+  }
+}

@@ -21,6 +21,10 @@ import cloud4Texture from "/textures-ktx2/cloud/cloud-blur-02.ktx2?url";
 import mountainTexture from "/textures-ktx2/landscape/mountain.ktx2?url";
 import panelTexture from "/textures-ktx2/solar/panels.ktx2?url";
 
+
+
+import {config} from "../config"
+
 //import grassTexture from "/textures/landscape/grass.png?url";
 
 export default class PlaneModelManager {
@@ -400,7 +404,6 @@ export default class PlaneModelManager {
     if (!camera) return;
 
     const cameraZ = camera.position.z;
-    console.log();
     this.planes.forEach((plane) => {
       const range = plane.userData.config.visibilityRange;
 
@@ -493,7 +496,6 @@ export default class PlaneModelManager {
    */
   update(camera) {
     if (camera) {
-      console.log("-->");
       this.updateVisibility(camera);
     }
 
@@ -600,8 +602,10 @@ export default class PlaneModelManager {
 
     this.addPlaneConfig({
       textureKey: "mountain",
-      height: 30,
-      position: { x: 30, y: -8, z: -144.5 },
+      height: 50,
+      position: { x: config.planes.mountain.position.x, y:config.planes.mountain.position.y, z: config.planes.mountain.position.z },
+
+      
       tag: "mountain",
       visibilityRange: {
         startZ: -123, // Inizia a essere visibile quando la camera è a z=-150
@@ -616,8 +620,8 @@ export default class PlaneModelManager {
 
     this.addPlaneConfig({
       textureKey: "panels",
-      height: 6,
-      position: { x: 45, y: -4, z: -135.5 },
+      height: 12,
+      position: { x: config.planes.panels.position.x, y:config.planes.panels.position.y, z: config.planes.panels.position.z },
       tag: "panels",
       visibilityRange: {
         startZ: -123, // Inizia a essere visibile quando la camera è a z=-150
